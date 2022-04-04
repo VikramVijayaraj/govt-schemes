@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, Switch } from "react-native";
 import { useState } from "react";
 
-import colors from "../../config/colors"
+import colors from "../../config/colors";
 import Form from "./Form";
 import LoginImage from "./LoginImage";
 import LoginProviders from "./LoginProviders";
 
-export default function index() {
+export default function index(props) {
+  // console.log(props);
   return (
     <>
       <LoginImage />
@@ -17,7 +18,7 @@ export default function index() {
 
       <Text>OR</Text>
 
-      <Form />
+      <Form onPress={props.onPress} />
 
       <Text>
         Don't have an account? <Text style={styles.register}>Register now</Text>
@@ -35,5 +36,5 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontSize: 14,
     fontWeight: "bold",
-  }
+  },
 });

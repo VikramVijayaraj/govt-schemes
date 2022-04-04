@@ -9,8 +9,10 @@ import {
 import React, { useState } from "react";
 
 import colors from "../../config/colors";
+import Signup from "../signup";
 
-export default function Form() {
+export default function Form(props) {
+  console.log(props);
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
 
@@ -45,7 +47,15 @@ export default function Form() {
         <Text>Forgot Password?</Text>
       </View>
 
-      <TouchableOpacity style={styles.loginButton}>
+      <TouchableOpacity
+        style={styles.loginButton}
+        onPress={() => (
+          <>
+            {props.onPress(false)}
+            {console.log("Pressed!")}
+          </>
+        )}
+      >
         <Text style={styles.loginButtonText}>LOGIN</Text>
       </TouchableOpacity>
     </View>
