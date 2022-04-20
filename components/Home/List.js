@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { View, StyleSheet, ScrollView, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -6,14 +6,17 @@ import colors from "../../config/colors";
 import Card from "../UI/Card";
 import Title from "../UI/Title";
 import Text from "../UI/Text";
-import { SchemesCountContext } from "../../context/schemes-count-context";
+import { SchemesCountContext } from "../../store/schemes-count-context";
 
-import { LogBox } from "react-native";
-LogBox.ignoreAllLogs(); //Ignore all log notifications
+// import { LogBox } from "react-native";
+// LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function List({ listItems }) {
-  const { schemesCount, setSchemesCount } = useContext(SchemesCountContext);
-  setSchemesCount(listItems.length);
+  const countCtx = useContext(SchemesCountContext);
+
+  useEffect(() => {
+    countCtx.updateSchemesCount(listItems.length);
+  });
 
   const navigation = useNavigation();
 
@@ -32,7 +35,7 @@ export default function List({ listItems }) {
                 <View style={styles.header}>
                   <Image
                     style={styles.image}
-                    source={require("../../assets/emblem.png")}
+                    source={require("../../assets/images/emblem.png")}
                   />
                   <View>
                     <Title style={styles.title}>{item.title}</Title>

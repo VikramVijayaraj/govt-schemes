@@ -1,14 +1,21 @@
 import { createContext, useState } from "react";
 
 export const SchemesCountContext = createContext({
-  schemesCount: 0,
-  setSchemesCount: () => {},
+  count: 0,
+  updateSchemesCount: () => {},
 });
 
 export default function SchemesCountContextProvider({ children }) {
   const [schemesCount, setSchemesCount] = useState(0);
 
-  const value = { schemesCount, setSchemesCount };
+  function updateSchemesCount(listLength) {
+    setSchemesCount(listLength);
+  }
+
+  const value = {
+    count: schemesCount,
+    updateSchemesCount: updateSchemesCount,
+  };
 
   return (
     <SchemesCountContext.Provider value={value}>

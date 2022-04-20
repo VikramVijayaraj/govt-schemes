@@ -1,5 +1,6 @@
 import { StatusBar } from "expo-status-bar";
-import { View, StyleSheet, Text } from "react-native";
+import { useContext, useState, useEffect } from "react";
+import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -17,26 +18,26 @@ import ProfileScreen from "./screens/ProfileScreen";
 import AppliedSchemesScreen from "./screens/AppliedSchemesScreen";
 import SchemeDetails from "./screens/SchemeDetails";
 import DocsUploadScreen from "./screens/DocsUploadScreen";
+import OnApplyScreen from "./screens/OnApplyScreen";
+import AuthContextProvider, { AuthContext } from "./store/auth-context";
+import UpdateProfile from "./components/Profile/UpdateProfile";
+import UserContextProvider from "./store/user-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
-// function AppDrawer() {
-//   return (
-//     <Drawer.Navigator>
-//       <Drawer.Screen name="AppBottomTabs" component={AppBottomTabs} />
-//     </Drawer.Navigator>
-//   );
-// }
 
 function AppBottomTabs() {
   return (
     <BottomTabs.Navigator
       screenOptions={{
         headerShown: false,
-        tabBarStyle: { backgroundColor: colors.tabs },
-        tabBarActiveTintColor: "white",
+        tabBarStyle: {
+          backgroundColor: colors.tabs,
+          // height: 60,
+        },
+        tabBarActiveTintColor: colors.gray100,
+        // tabBarShowLabel: false,
       }}
     >
       <BottomTabs.Screen
@@ -81,6 +82,106 @@ function AppBottomTabs() {
   );
 }
 
+function AuthStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Signup" component={SignupScreen} />
+    </Stack.Navigator>
+  );
+}
+
+function AuthenticatedStack() {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerTitleAlign: "center",
+        headerShown: false,
+        contentStyle: { color: "white" },
+      }}
+    >
+      <Stack.Screen name="AppBottomTabs" component={AppBottomTabs} />
+
+      <Stack.Screen
+        name="SchemeDetails"
+        component={SchemeDetails}
+        options={{
+          title: "",
+          headerShown: true,
+          headerTransparent: true,
+          headerTintColor: colors.gray100,
+          headerRight: () => (
+            <Ionicons name="star-outline" size={20} color={colors.gray100} />
+          ),
+        }}
+      />
+
+      <Stack.Screen
+        name="OnApply"
+        component={OnApplyScreen}
+        options={{
+          title: "",
+          headerShown: true,
+          headerTransparent: true,
+          headerTintColor: colors.gray100,
+        }}
+      />
+
+      <Stack.Screen
+        name="UpdateProfile"
+        component={UpdateProfile}
+        options={{
+          title: "Update Profile",
+          headerShown: true,
+          // headerTransparent: true,
+          headerTintColor: colors.gray800,
+        }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function Navigation() {
+  const authCtx = useContext(AuthContext);
+
+  return (
+    <NavigationContainer>
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {/* <AuthenticatedStack /> */}
+    </NavigationContainer>
+  );
+}
+
+function Root() {
+  const [isTryingLogin, setIsTryingLogin] = useState(true);
+
+  const authCtx = useContext(AuthContext);
+
+  useEffect(() => {
+    async function fetchToken() {
+      const storedToken = await AsyncStorage.getItem("token");
+
+      if (storedToken) {
+        authCtx.authenticate(storedToken);
+      }
+
+      setIsTryingLogin(false);
+    }
+
+    if (isTryingLogin) return <AppLoading />;
+
+    fetchToken();
+  }, []);
+
+  return <Navigation />;
+}
+
 export default function App() {
   const [fontsLoaded] = useFonts({
     "work-sans-light": require("./assets/fonts/WorkSans-Light.ttf"),
@@ -97,32 +198,11 @@ export default function App() {
       <StatusBar style="auto" />
 
       <View style={styles.container}>
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerTitleAlign: "center",
-              headerShown: false,
-            }}
-          >
-            {/* <Stack.Screen name="Login" component={LoginScreen} /> */}
-            {/* <Stack.Screen name="Signup" component={SignupScreen} /> */}
-
-            <Stack.Screen name="AppBottomTabs" component={AppBottomTabs} />
-
-            {/* <Stack.Screen name="AppDrawer" component={AppDrawer} /> */}
-
-            <Stack.Screen
-              name="SchemeDetails"
-              component={SchemeDetails}
-              options={{
-                title: "About the scheme",
-                headerShown: true,
-                headerRight: () => <Ionicons name="star-outline" size={20} />,
-                // headerStyle: { backgroundColor: colors.primary400 },
-              }}
-            />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <AuthContextProvider>
+          <UserContextProvider>
+            <Root />
+          </UserContextProvider>
+        </AuthContextProvider>
       </View>
     </>
   );
@@ -131,6 +211,6 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    // paddingTop: 40,
   },
 });

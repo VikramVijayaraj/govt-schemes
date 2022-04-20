@@ -22,7 +22,7 @@ export default function Header() {
       >
         <Image
           style={styles.headerImage}
-          source={require("../../assets/user-avatar.png")}
+          source={require("../../assets/images/user-avatar.png")}
         />
       </Pressable>
     </View>

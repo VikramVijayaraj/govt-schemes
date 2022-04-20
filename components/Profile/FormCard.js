@@ -2,7 +2,7 @@ import { View, StyleSheet } from "react-native";
 
 import colors from "../../config/colors";
 import Card from "../UI/Card";
-import Button from "../UI/Button";
+import Button from "./Button";
 import Text from "../UI/Text";
 import { useState } from "react";
 

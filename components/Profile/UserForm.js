@@ -1,23 +1,18 @@
-import { useState } from "react";
+import { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import FormCard from "./FormCard";
 import Input from "../UI/Input";
-import Button from "../UI/Button";
-import { sub } from "react-native-reanimated";
+import Button from "./Button";
+import { UserContext } from "../../store/user-context";
+import { storeUser } from "../../util/user";
 
 export default function UserForm() {
-  const [userData, setUserData] = useState({
-    firstName: "",
-    lastName: "",
-    dateOfBirth: "",
-    age: "",
-    gender: "",
-    category: "",
-    maritalStatus: "",
-    pwdStatus: "",
-  });
+  const { userData, setUserData } = useContext(UserContext);
+
+  const navigation = useNavigation();
 
   function optionHandler(selectedText) {
     if (selectedText === "Male" || selectedText === "Female") {
@@ -33,8 +28,6 @@ export default function UserForm() {
       userData.pwdStatus = selectedText;
       setUserData({ ...userData });
     }
-
-    console.log(userData);
   }
 
   function inputHandler(label, enteredValue) {
@@ -44,12 +37,11 @@ export default function UserForm() {
         [label]: enteredValue,
       };
     });
-
-    console.log(userData);
   }
 
-  function submitHandler() {
-    console.log(userData);
+  async function submitHandler() {
+    await storeUser(userData);
+    navigation.navigate("Profile");
   }
 
   return (
@@ -128,7 +120,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   updateBtn: {
     elevation: 4,

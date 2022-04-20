@@ -7,7 +7,7 @@ import Header from "../components/Home/Header";
 import SeachBar from "../components/Home/SeachBar";
 import SchemesCount from "../components/Home/SchemesCount";
 import SchemesFilter from "../components/Home/SchemesFilter";
-import SchemesCountContextProvider from "../context/schemes-count-context";
+import SchemesCountContextProvider from "../store/schemes-count-context";
 
 export default function HomeScreen() {
   return (
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    paddingTop: 40,
   },
   info: {
     flexDirection: "row",

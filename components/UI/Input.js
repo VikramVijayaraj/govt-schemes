@@ -10,12 +10,14 @@ export default function Input({
   onChangeText,
   icon,
   otherProps,
+  style,
 }) {
   return (
     <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
-      <View style={styles.input}>
+      <View style={[styles.inputContainer, style]}>
         <TextInput
+          style={styles.textInput}
           placeholder={placeholder}
           value={value}
           onChangeText={onChangeText}
@@ -31,12 +33,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 0.45,
     // width: "45%",
+    marginBottom: 10,
   },
   label: {
     marginBottom: 4,
     color: colors.gray800,
   },
-  input: {
+  inputContainer: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
@@ -45,5 +48,8 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     color: colors.gray900,
+  },
+  textInput: {
+    marginLeft: 10,
   },
 });

@@ -1,15 +1,15 @@
 import { useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { SchemesCountContext } from "../../context/schemes-count-context";
 
+import { SchemesCountContext } from "../../store/schemes-count-context";
 import Text from "../UI/Text";
 
 export default function SchemesCount() {
-  const { schemesCount, setSchemesCount } = useContext(SchemesCountContext);
+  const countCtx = useContext(SchemesCountContext);
 
   return (
     <View style={styles.container}>
-      <Text>{schemesCount} SCHEMES FOUND</Text>
+      <Text>{countCtx.count} SCHEMES FOUND</Text>
     </View>
   );
 }

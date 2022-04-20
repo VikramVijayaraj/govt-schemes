@@ -7,7 +7,10 @@ import Text from "../UI/Text";
 export default function DetailHeader() {
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={require("../../assets/emblem.png")} />
+      <Image
+        style={styles.image}
+        source={require("../../assets/images/emblem.png")}
+      />
       <Title style={styles.title}>
         Distribution of Certified Seeds of maize
       </Title>
@@ -23,6 +26,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
+    paddingTop: 100,
     backgroundColor: colors.primary400,
     borderBottomEndRadius: 20,
     borderBottomStartRadius: 20,

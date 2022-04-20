@@ -1,40 +1,79 @@
-import { StyleSheet, Pressable, View } from "react-native";
+import { Pressable, StyleSheet, View } from "react-native";
 
 import colors from "../../config/colors";
 import Text from "./Text";
 
-export default function Button({
-  children,
-  containerStyle,
-  textStyle,
-  onPress,
-}) {
+function Button({ children, onPress }) {
   return (
-    <View style={[styles.button, containerStyle]}>
-      <Pressable
-        onPress={onPress}
-        android_ripple={{ color: colors.primary800 }}
-      >
-        <Text style={[styles.text, textStyle]}>{children}</Text>
-      </Pressable>
-    </View>
+    <Pressable
+      style={({ pressed }) => [styles.button, pressed && styles.pressed]}
+      onPress={onPress}
+    >
+      <View>
+        <Text style={styles.buttonText}>{children}</Text>
+      </View>
+    </Pressable>
   );
 }
 
+export default Button;
+
 const styles = StyleSheet.create({
   button: {
-    alignSelf: "center",
-    borderRadius: 20,
+    borderRadius: 6,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     backgroundColor: colors.primary500,
-    overflow: "hidden",
+    elevation: 4,
   },
-  text: {
-    fontSize: 15,
-    paddingHorizontal: 30,
-    paddingVertical: 10,
-    color: "white",
+  pressed: {
+    opacity: 0.7,
+  },
+  buttonText: {
     textAlign: "center",
-    fontFamily: "work-sans-regular",
-    color: colors.gray100,
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
+
+// import { StyleSheet, Pressable, View } from "react-native";
+
+// import colors from "../../config/colors";
+// import Text from "./Text";
+
+// export default function Button({
+//   children,
+//   containerStyle,
+//   textStyle,
+//   onPress,
+// }) {
+//   return (
+//     <View style={[styles.button, containerStyle]}>
+//       <Pressable
+//         onPress={onPress}
+//         android_ripple={{ color: colors.primary800 }}
+//       >
+//         <Text style={[styles.text, textStyle]}>{children}</Text>
+//       </Pressable>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   button: {
+//     alignSelf: "center",
+//     borderRadius: 20,
+//     backgroundColor: colors.primary500,
+//     overflow: "hidden",
+//   },
+//   text: {
+//     fontSize: 15,
+//     paddingHorizontal: 30,
+//     paddingVertical: 10,
+//     color: "white",
+//     textAlign: "center",
+//     fontFamily: "work-sans-regular",
+//     color: colors.gray100,
+//   },
+// });

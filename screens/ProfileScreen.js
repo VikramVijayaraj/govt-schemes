@@ -1,14 +1,14 @@
 import { View, StyleSheet, ScrollView } from "react-native";
 
 import ProfileHeader from "../components/Profile/ProfileHeader";
-import UserForm from "../components/Profile/UserForm";
+import UserDetails from "../components/Profile/UserDetails";
 
 export default function ProfileScreen() {
   return (
     <ScrollView>
       <View style={styles.container}>
         <ProfileHeader />
-        <UserForm />
+        <UserDetails />
       </View>
     </ScrollView>
   );
@@ -17,7 +17,6 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
-    paddingTop: 20,
+    // backgroundColor: "white",
   },
 });
