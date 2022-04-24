@@ -29,8 +29,6 @@ function LoginScreen() {
       userData.email = userEmail;
       userData.uid = uId;
       setUserData({ ...userData });
-      console.log("Login Screen");
-      console.log(userData);
     } catch (error) {
       Alert.alert(
         "Authentication failed!",

@@ -16,12 +16,9 @@ export default function HomeScreen() {
         <Header />
         <SeachBar />
 
-        <View style={styles.info}>
-          <SchemesCount />
-          <SchemesFilter />
-        </View>
 
-        <List listItems={TestData} />
+
+        {/* <List listItems={TestData} /> */}
       </View>
     </SchemesCountContextProvider>
   );
@@ -33,11 +30,5 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     paddingTop: 40,
   },
-  info: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 20,
-    marginHorizontal: 20,
-  },
+  
 });

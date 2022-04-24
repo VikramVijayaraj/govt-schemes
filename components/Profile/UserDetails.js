@@ -6,6 +6,7 @@ import { fetchUser } from "../../util/user";
 import Card from "../UI/Card";
 import Text from "../UI/Text";
 import Title from "../UI/Title";
+import UpdateProfile from "./UpdateProfile";
 
 export default function UserDetails() {
   const { userData, setUserData } = useContext(UserContext);
@@ -13,14 +14,13 @@ export default function UserDetails() {
   useEffect(() => {
     async function getUserData() {
       const data = await fetchUser(userData.uid);
-      console.log(data);
       if (data) {
         setUserData({ ...data });
       } else {
         console.log("No data found!");
+        <UpdateProfile />;
       }
     }
-
     getUserData();
   }, []);
 

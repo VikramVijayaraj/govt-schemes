@@ -11,7 +11,7 @@ import { SchemesCountContext } from "../../store/schemes-count-context";
 // import { LogBox } from "react-native";
 // LogBox.ignoreAllLogs(); //Ignore all log notifications
 
-export default function List({ listItems }) {
+export default function List({ listItems, query, clearIcon }) {
   const countCtx = useContext(SchemesCountContext);
 
   useEffect(() => {
@@ -25,10 +25,18 @@ export default function List({ listItems }) {
     navigation.navigate("SchemeDetails");
   }
 
+  let list;
+
+  if (query) {
+    list = listItems.filter((item) => item.title.includes(query));
+  } else {
+    list = listItems;
+  }
+
   return (
     <>
       <ScrollView>
-        {listItems.map((item, index) => (
+        {list.map((item, index) => (
           <View key={index}>
             <Card style={styles.card}>
               <Pressable onPress={onPressHandler}>

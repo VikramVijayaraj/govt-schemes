@@ -31,8 +31,6 @@ export default function SchemesFilter() {
         android_ripple={{ color: colors.gray800 }}
       >
         <Ionicons name="filter" size={20} color={colors.gray800} />
-        {/* <Text style={styles.text}>Filter</Text> */}
-        {/* <Ionicons name="chevron-down" size={20} color={colors.gray800} /> */}
       </Pressable>
 
       <Modal visible={modalVisible} animationType="slide">

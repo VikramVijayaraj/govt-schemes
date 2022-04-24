@@ -22,6 +22,7 @@ import OnApplyScreen from "./screens/OnApplyScreen";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import UpdateProfile from "./components/Profile/UpdateProfile";
 import UserContextProvider from "./store/user-context";
+import FilePreviewScreen from "./screens/FilePreviewScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -142,6 +143,17 @@ function AuthenticatedStack() {
           headerTintColor: colors.gray800,
         }}
       />
+
+      <Stack.Screen
+        name="FilePreview"
+        component={FilePreviewScreen}
+        options={{
+          title: "Preview",
+          headerShown: true,
+          // headerTransparent: true,
+          headerTintColor: colors.gray800,
+        }}
+      />
     </Stack.Navigator>
   );
 }
@@ -151,9 +163,9 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
-      {/* <AuthenticatedStack /> */}
+      {/* {!authCtx.isAuthenticated && <AuthStack />} */}   
+      {/* {authCtx.isAuthenticated && <AuthenticatedStack />} */}
+      <AuthenticatedStack />
     </NavigationContainer>
   );
 }
