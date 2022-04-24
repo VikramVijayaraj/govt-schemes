@@ -11,6 +11,7 @@ import Text from "../UI/Text";
 
 export default function DocsList() {
   const navigation = useNavigation();
+  console.log("Rendered!");
 
   const uploadCtx = useContext(UploadContext);
   console.log(uploadCtx.files);
@@ -25,17 +26,22 @@ export default function DocsList() {
 
     async function getUserDocs() {
       const response = await fetchUser(userData.uid);
-
-      for (let key in response.documents) {
-        const helperArr = [];
-        helperArr.push(response.documents[key].name);
-        setFilesList((currentFiles) => [...currentFiles, ...helperArr]);
+      if (response.documents) {
+        for (let key in response.documents) {
+          const helperArr = [];
+          helperArr.push(response.documents[key].name);
+          setFilesList((currentFiles) => [...currentFiles, ...helperArr]);
+          console.log(filesList);
+        }
       }
     }
     getUserDocs();
   }, []);
 
-  if (filesList.length === 0) {
+  tempArr.push(...filesList, ...uploadCtx.files);
+  console.log(tempArr);
+
+  if (tempArr.length === 0) {
     return (
       <View style={styles.container}>
         <Text style={styles.nothing}>No files uploaded!</Text>
@@ -49,8 +55,6 @@ export default function DocsList() {
     });
   }
 
-  tempArr.push(...filesList, ...uploadCtx.files);
-  
   return (
     <View style={styles.container}>
       <Text style={styles.caption}>Uploaded files</Text>
@@ -80,5 +84,6 @@ const styles = StyleSheet.create({
   },
   nothing: {
     fontFamily: "work-sans-light",
+    alignSelf: "center",
   },
 });
