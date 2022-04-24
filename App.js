@@ -163,9 +163,9 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {/* {!authCtx.isAuthenticated && <AuthStack />} */}   
-      {/* {authCtx.isAuthenticated && <AuthenticatedStack />} */}
-      <AuthenticatedStack />
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {/* <AuthenticatedStack /> */}
     </NavigationContainer>
   );
 }

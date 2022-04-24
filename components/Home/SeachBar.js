@@ -29,9 +29,9 @@ export default function SeachBar() {
           </View>
         </View>
 
-        <View style={styles.closeIconContainer}>
+        {/* <View style={styles.closeIconContainer}>
           {searchQuery && <Ionicons name="close" color={colors.gray800} />}
-        </View>
+        </View> */}
       </View>
 
       <View style={styles.info}>
@@ -40,10 +40,7 @@ export default function SeachBar() {
       </View>
 
       {searchQuery ? (
-        <List
-          listItems={TestData}
-          query={searchQuery}
-        />
+        <List listItems={TestData} query={searchQuery} />
       ) : (
         <List listItems={TestData} />
       )}
