@@ -1,6 +1,12 @@
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  ActivityIndicator,
+  Image,
+} from "react-native";
 
 import colors from "../../config/colors";
 import { UploadContext } from "../../store/upload-context";
@@ -11,19 +17,19 @@ import Text from "../UI/Text";
 
 export default function DocsList() {
   const navigation = useNavigation();
-  console.log("Rendered!");
 
   const uploadCtx = useContext(UploadContext);
-  console.log(uploadCtx.files);
+
   const { userData } = useContext(UserContext);
 
   const [filesList, setFilesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const tempArr = [];
 
   useEffect(() => {
     setFilesList([]); // for DEVELOPMENT ONLY
-
+    setIsLoading(true);
     async function getUserDocs() {
       const response = await fetchUser(userData.uid);
       if (response.documents) {
@@ -36,10 +42,12 @@ export default function DocsList() {
       }
     }
     getUserDocs();
+    setIsLoading(false);
   }, []);
 
   tempArr.push(...filesList, ...uploadCtx.files);
-  console.log(tempArr);
+
+  if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
 
   if (tempArr.length === 0) {
     return (
@@ -62,8 +70,14 @@ export default function DocsList() {
         {tempArr.map((file, index) => (
           <View key={index}>
             <Pressable onPress={previewFile.bind(this, file)}>
-              <Card>
-                <Text>{file}</Text>
+              <Card style={styles.card}>
+                <View style={styles.fileItem}>
+                  <Image
+                    style={styles.fileImage}
+                    source={require("../../assets/images/file.png")}
+                  />
+                  <Text>{file}</Text>
+                </View>
               </Card>
             </Pressable>
           </View>
@@ -81,9 +95,23 @@ const styles = StyleSheet.create({
   },
   caption: {
     color: colors.gray700,
+    marginBottom: 10
   },
   nothing: {
     fontFamily: "work-sans-light",
     alignSelf: "center",
+  },
+  card: {
+    marginVertical: 5,
+    borderRadius: 5
+  },
+  fileItem: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  fileImage: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
   },
 });

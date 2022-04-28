@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const BASE_URL =
-  "https://react-native-course-5e3fc-default-rtdb.firebaseio.com/";
+  "https://react-native-course-5e3fc-default-rtdb.firebaseio.com";
 
 export function storeUser(userData) {
   // post will auto generate id, so use put

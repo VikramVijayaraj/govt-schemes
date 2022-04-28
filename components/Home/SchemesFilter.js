@@ -1,26 +1,35 @@
 import { useEffect, useState } from "react";
-import { View, StyleSheet, Pressable, Modal } from "react-native";
+import { View, StyleSheet, Pressable, Modal, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
 import Text from "../UI/Text";
 import Title from "../UI/Title";
-import filterList from "../../data/filters";
+import { departments, beneficiary } from "../../data/filters";
+import Filters from "./Filters";
 
 export default function SchemesFilter() {
+  const [isDepartments, setIsDepartments] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const [filterData, setFilterData] = useState(filterList);
 
+  let filterList = isDepartments ? departments : beneficiary;
+
+  function filterHandler() {
+    setIsDepartments(!isDepartments);
+  }
+
   function onItemSelectHandler(itemId) {
     // console.log(itemId);
-    const data = filterData;
-    const index = data.findIndex((item) => item.id === itemId);
+    // const data = filterData;
+    // const index = data.findIndex((item) => item.id === itemId);
 
-    data[index].checked = !data[index].checked;
+    // data[index].checked = !data[index].checked;
 
-    setFilterData(data);
-    console.log(data);
+    // setFilterData(data);
+    // console.log(data);
     setModalVisible(false);
   }
 
@@ -34,18 +43,25 @@ export default function SchemesFilter() {
       </Pressable>
 
       <Modal visible={modalVisible} animationType="slide">
-        <Pressable style={styles.modal} onPress={() => setModalVisible(false)}>
-          <Ionicons style={styles.chevronIcon} name="chevron-down" size={30} />
+        <ScrollView style={styles.modal}>
+          <Pressable onPress={() => setModalVisible(false)}>
+            <Ionicons
+              style={styles.chevronIcon}
+              name="chevron-down"
+              size={30}
+            />
 
-          <View style={styles.modalList}>
-            {filterList.map((filterItem) => (
-              <View key={filterItem.id}>
-                <Pressable
-                  onPress={onItemSelectHandler.bind(this, filterItem.id)}
-                  android_ripple={{ color: colors.gray800 }}
-                >
-                  <View style={styles.modalItem}>
-                    {filterItem.checked ? (
+            <Filters filter={filterHandler} />
+
+            <View style={styles.modalList}>
+              {filterList.map((filterItem) => (
+                <View key={filterItem.id}>
+                  <Pressable
+                    onPress={onItemSelectHandler.bind(this, filterItem.id)}
+                    android_ripple={{ color: colors.gray800 }}
+                  >
+                    <View style={styles.modalItem}>
+                      {/* {filterItem.checked ? (
                       <MaterialCommunityIcons
                         name="checkbox-marked"
                         size={24}
@@ -57,14 +73,15 @@ export default function SchemesFilter() {
                         size={24}
                         color="black"
                       />
-                    )}
-                    <Title style={styles.itemText}>{filterItem.item}</Title>
-                  </View>
-                </Pressable>
-              </View>
-            ))}
-          </View>
-        </Pressable>
+                    )} */}
+                      <Title style={styles.itemText}>{filterItem.item}</Title>
+                    </View>
+                  </Pressable>
+                </View>
+              ))}
+            </View>
+          </Pressable>
+        </ScrollView>
       </Modal>
     </View>
   );
@@ -79,11 +96,11 @@ const styles = StyleSheet.create({
     marginRight: 5,
   },
   modal: {
-    flex: 1,
-    paddingTop: 30,
+    paddingTop: 10,
   },
   chevronIcon: {
     alignSelf: "center",
+    marginBottom: 20,
   },
   modalList: {
     margin: 20,
@@ -97,6 +114,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   itemText: {
-    marginLeft: 20,
+    fontSize: 20,
   },
 });

@@ -23,6 +23,8 @@ export default function SchemeDetails() {
 
   function onApplyHandler() {
     navigation.navigate("OnApply");
+
+    
   }
 
   return (

@@ -1,18 +1,54 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Modal, Pressable } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 import colors from "../../config/colors";
 import Title from "../UI/Title";
+import { FilterContext } from "../../store/filter-context";
 
-const stateList = ["Tamil Nadu", "kerala", "Andhra Pradesh", "Karnataka"];
+const stateFilter = [
+  {
+    name: "Tamil Nadu",
+    code: "tn",
+  },
+  {
+    name: "kerala",
+    code: "kl",
+  },
+  {
+    name: "Andhra Pradesh",
+    code: "ap",
+  },
+  {
+    name: "Karnataka",
+    code: "ka",
+  },
+];
 
 export default function StateModal() {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [state, setState] = useState("Tamil Nadu");
+  const filterCtx = useContext(FilterContext);
 
-  function onStateSelectHandler(state) {
-    setState(state);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [state, setState] = useState({
+    name: "Tamil Nadu",
+    code: "tn",
+  });
+
+  filterCtx.updateState(state.code);
+
+  function onStateSelectHandler(selected) {
+    state.name = selected;
+
+    stateFilter.filter((item) => {
+      if (item.name === selected) {
+        state.code = item.code;
+      }
+    });
+
+    setState({ ...state });
+
+    filterCtx.updateState(state.code);
+
     setModalVisible(false);
   }
 
@@ -23,7 +59,7 @@ export default function StateModal() {
         onPress={() => setModalVisible(true)}
         android_ripple={{ color: colors.gray800 }}
       >
-        <Title style={styles.headerText}>{state}</Title>
+        <Title style={styles.headerText}>{state.name}</Title>
         <Ionicons name="chevron-down" size={24} color={colors.gray800} />
       </Pressable>
 
@@ -35,16 +71,16 @@ export default function StateModal() {
             </View>
 
             <View style={styles.modalList}>
-              {stateList.map((stateItem, index) => (
+              {stateFilter.map((stateItem, index) => (
                 <View key={index}>
                   <Pressable
-                    onPress={onStateSelectHandler.bind(this, stateItem)}
+                    onPress={onStateSelectHandler.bind(this, stateItem.name)}
                     android_ripple={{ color: colors.gray800 }}
                   >
                     <View style={styles.modalItem}>
-                      <Title>{stateItem}</Title>
+                      <Title>{stateItem.name}</Title>
                       <View>
-                        {stateItem == state && (
+                        {stateItem.name == state.name && (
                           <Ionicons
                             name="checkmark-circle"
                             size={25}

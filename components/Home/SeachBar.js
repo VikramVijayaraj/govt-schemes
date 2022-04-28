@@ -1,15 +1,35 @@
-import { View, StyleSheet, TextInput } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, TextInput, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-import TestData from "../../data/test";
 import colors from "../../config/colors";
-import { useState } from "react";
 import List from "./List";
 import SchemesCount from "./SchemesCount";
 import SchemesFilter from "./SchemesFilter";
+import { fetchSchemes } from "../../util/schemes";
+import { FilterContext } from "../../store/filter-context";
+import Text from "../UI/Text";
 
 export default function SeachBar() {
+  const filterCtx = useContext(FilterContext);
+
   const [searchQuery, setSearchQuery] = useState("");
+  const [stateSchemes, setStateSchemes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getSchemes() {
+      setIsLoading(true);
+
+      const schemes = await fetchSchemes(filterCtx.state);
+
+      setStateSchemes([schemes]);
+    }
+    getSchemes();
+    setIsLoading(false);
+  }, [filterCtx.state]);
+
+  if (isLoading) return <ActivityIndicator color="dodgerblue" size="large" />;
 
   function inputHandler(enteredText) {
     setSearchQuery(enteredText);
@@ -40,9 +60,9 @@ export default function SeachBar() {
       </View>
 
       {searchQuery ? (
-        <List listItems={TestData} query={searchQuery} />
+        <List listItems={stateSchemes} query={searchQuery} />
       ) : (
-        <List listItems={TestData} />
+        <List listItems={stateSchemes} />
       )}
     </>
   );

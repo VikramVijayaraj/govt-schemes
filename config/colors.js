@@ -16,6 +16,7 @@ const colors = {
   google: "#34A853",
   apple: "#A8A8A8",
   facebook: "#2B44DA",
+  logout: "#db3030",
 };
 
 export default colors;

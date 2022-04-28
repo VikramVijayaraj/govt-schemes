@@ -1,24 +1,28 @@
+import { useContext } from "react";
 import { View, StyleSheet, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import Title from "../UI/Title";
 import Text from "../UI/Text";
-import { useContext } from "react";
 import colors from "../../config/colors";
 import Button from "./Button";
 import { AuthContext } from "../../store/auth-context";
 import { UserContext } from "../../store/user-context";
 
 export default function ProfileHeader() {
+  const navigation = useNavigation();
+
   const authCtx = useContext(AuthContext);
 
   const { userData } = useContext(UserContext);
 
-  const navigation = useNavigation();
-
   function editHandler() {
     navigation.navigate("UpdateProfile");
+  }
+
+  function logoutHandler() {
+    authCtx.logout();
   }
 
   return (
@@ -40,10 +44,6 @@ export default function ProfileHeader() {
             </Title>
           </View>
         </View>
-
-        {/* <Pressable>
-          <Ionicons name="pencil" size={15} color="black" />
-        </Pressable> */}
       </View>
 
       <View style={styles.subSection}>
@@ -57,9 +57,9 @@ export default function ProfileHeader() {
           <Button
             containerStyle={[
               styles.subSectionBtn,
-              { backgroundColor: "#db3030" },
+              { backgroundColor: colors.logout },
             ]}
-            onPress={authCtx.logout}
+            onPress={logoutHandler}
           >
             <Ionicons name="log-out" size={22} />
           </Button>

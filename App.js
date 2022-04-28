@@ -4,7 +4,6 @@ import { View, StyleSheet } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createDrawerNavigator } from "@react-navigation/drawer";
 import { useFonts } from "expo-font";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
@@ -16,17 +15,17 @@ import SignupScreen from "./screens/SignupScreen";
 import HomeScreen from "./screens/HomeScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import AppliedSchemesScreen from "./screens/AppliedSchemesScreen";
-import SchemeDetails from "./screens/SchemeDetails";
+import SchemeDetailsScreen from "./screens/SchemeDetailsScreen";
 import DocsUploadScreen from "./screens/DocsUploadScreen";
 import OnApplyScreen from "./screens/OnApplyScreen";
 import AuthContextProvider, { AuthContext } from "./store/auth-context";
 import UpdateProfile from "./components/Profile/UpdateProfile";
 import UserContextProvider from "./store/user-context";
 import FilePreviewScreen from "./screens/FilePreviewScreen";
+import FilterContextProvider from "./store/filter-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
-const Drawer = createDrawerNavigator();
 
 function AppBottomTabs() {
   return (
@@ -35,7 +34,6 @@ function AppBottomTabs() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.tabs,
-          // height: 60,
         },
         tabBarActiveTintColor: colors.gray100,
         // tabBarShowLabel: false,
@@ -110,7 +108,7 @@ function AuthenticatedStack() {
 
       <Stack.Screen
         name="SchemeDetails"
-        component={SchemeDetails}
+        component={SchemeDetailsScreen}
         options={{
           title: "",
           headerShown: true,
@@ -163,9 +161,9 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {!authCtx.isAuthenticated && <AuthStack />}
-      {authCtx.isAuthenticated && <AuthenticatedStack />}
-      {/* <AuthenticatedStack /> */}
+      {/* {!authCtx.isAuthenticated && <AuthStack />} */}
+      {/* {authCtx.isAuthenticated && <AuthenticatedStack />} */}
+      <AuthenticatedStack />
     </NavigationContainer>
   );
 }
@@ -212,7 +210,9 @@ export default function App() {
       <View style={styles.container}>
         <AuthContextProvider>
           <UserContextProvider>
-            <Root />
+            <FilterContextProvider>
+              <Root />
+            </FilterContextProvider>
           </UserContextProvider>
         </AuthContextProvider>
       </View>

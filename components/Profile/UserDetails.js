@@ -1,5 +1,5 @@
-import { useContext, useEffect } from "react";
-import { View, StyleSheet } from "react-native";
+import { useContext, useEffect, useState } from "react";
+import { View, StyleSheet, ActivityIndicator } from "react-native";
 
 import { UserContext } from "../../store/user-context";
 import { fetchUser } from "../../util/user";
@@ -10,8 +10,10 @@ import UpdateProfile from "./UpdateProfile";
 
 export default function UserDetails() {
   const { userData, setUserData } = useContext(UserContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     async function getUserData() {
       const data = await fetchUser(userData.uid);
       if (data) {
@@ -22,7 +24,10 @@ export default function UserDetails() {
       }
     }
     getUserData();
+    setIsLoading(false);
   }, []);
+
+  // if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
 
   return (
     <View style={styles.container}>

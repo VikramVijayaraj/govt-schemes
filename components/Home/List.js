@@ -1,5 +1,12 @@
 import { useContext, useEffect } from "react";
-import { View, StyleSheet, ScrollView, Image, Pressable } from "react-native";
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Pressable,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
@@ -11,8 +18,18 @@ import { SchemesCountContext } from "../../store/schemes-count-context";
 // import { LogBox } from "react-native";
 // LogBox.ignoreAllLogs(); //Ignore all log notifications
 
-export default function List({ listItems, query, clearIcon }) {
+export default function List({ listItems, query }) {
   const countCtx = useContext(SchemesCountContext);
+
+  if (!listItems[0]) {
+    countCtx.updateSchemesCount(0);
+
+    return (
+      <View style={styles.nothing}>
+        <Text>No schemes found!</Text>
+      </View>
+    );
+  }
 
   useEffect(() => {
     countCtx.updateSchemesCount(listItems.length);
@@ -28,7 +45,7 @@ export default function List({ listItems, query, clearIcon }) {
   let list;
 
   if (query) {
-    list = listItems.filter((item) => item.title.includes(query));
+    list = listItems.filter((item) => item.name.includes(query));
   } else {
     list = listItems;
   }
@@ -46,13 +63,13 @@ export default function List({ listItems, query, clearIcon }) {
                     source={require("../../assets/images/emblem.png")}
                   />
                   <View>
-                    <Title style={styles.title}>{item.title}</Title>
+                    <Title style={styles.title}>{item.name}</Title>
                     <Text style={styles.subtitle}>{item.department}</Text>
                   </View>
                 </View>
                 <View style={styles.tags}>
                   <Text style={styles.highlight}>{item.beneficiary}</Text>
-                  <Text>{item.benefitsType}</Text>
+                  <Text>{item.benefits}</Text>
                 </View>
               </Pressable>
             </Card>
@@ -64,6 +81,11 @@ export default function List({ listItems, query, clearIcon }) {
 }
 
 const styles = StyleSheet.create({
+  nothing: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -88,7 +110,7 @@ const styles = StyleSheet.create({
   },
   card: {
     marginHorizontal: 20,
-    paddingRight: 40,
+    paddingRight: 60,
   },
   highlight: {
     backgroundColor: colors.primary400,

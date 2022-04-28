@@ -43,9 +43,13 @@ export default function UploadFooter() {
       xhr.send(null);
     });
 
+    // const metadata = {
+    //   contentDisposition: "attachment",
+    // };
+
     const fileRef = ref(getStorage(), `documents/${userData.uid}/${name}`);
     const result = await uploadBytes(fileRef, blob);
-
+    
     blob.close();
 
     const uploadURL = await getDownloadURL(fileRef).then((url) => url);
