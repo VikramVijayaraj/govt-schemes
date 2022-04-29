@@ -19,6 +19,8 @@ import { SchemesCountContext } from "../../store/schemes-count-context";
 // LogBox.ignoreAllLogs(); //Ignore all log notifications
 
 export default function List({ listItems, query }) {
+  const navigation = useNavigation();
+
   const countCtx = useContext(SchemesCountContext);
 
   const stateArr = [];
@@ -29,6 +31,14 @@ export default function List({ listItems, query }) {
     }
   });
 
+  countCtx.updateSchemesCount(stateArr.length);
+
+  function onPressHandler(details) {
+    navigation.navigate("SchemeDetails", {
+      details: details,
+    });
+  }
+
   if (!stateArr[0]) {
     countCtx.updateSchemesCount(0);
 
@@ -37,18 +47,6 @@ export default function List({ listItems, query }) {
         <Text>No schemes found!</Text>
       </View>
     );
-  }
-
-  useEffect(() => {
-    countCtx.updateSchemesCount(stateArr.length);
-  });
-
-  const navigation = useNavigation();
-
-  function onPressHandler(details) {
-    console.log("Pressed!");
-    console.log(details);
-    navigation.navigate("SchemeDetails");
   }
 
   let list;

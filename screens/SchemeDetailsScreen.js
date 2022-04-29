@@ -5,8 +5,11 @@ import DetailHeader from "../components/SchemeDetails/DetailHeader";
 import DetailList from "../components/SchemeDetails/DetailList";
 import Button from "../components/SchemeDetails/Button";
 
-export default function SchemeDetails() {
+export default function SchemeDetails({ route }) {
   const navigation = useNavigation();
+
+  const { name, department, date, beneficiary, benefits, avail, description } =
+    route.params.details;
 
   function btnPressHandler() {
     Alert.alert(
@@ -23,15 +26,18 @@ export default function SchemeDetails() {
 
   function onApplyHandler() {
     navigation.navigate("OnApply");
-
-    
   }
 
   return (
     <>
       <ScrollView style={styles.container}>
-        <DetailHeader />
-        <DetailList />
+        <DetailHeader title={name} subtitle={department} date={date} />
+        <DetailList
+          beneficiary={beneficiary}
+          benefits={benefits}
+          avail={avail}
+          description={description}
+        />
       </ScrollView>
       <Button onPress={btnPressHandler} containerStyle={styles.floatButton}>
         Apply

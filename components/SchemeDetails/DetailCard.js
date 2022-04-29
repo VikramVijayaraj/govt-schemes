@@ -5,7 +5,7 @@ import Text from "../UI/Text";
 
 export default function DetailCard({ title, desc }) {
   return (
-    <Card>
+    <Card style={styles.card}>
       <Text style={styles.title}>{title}</Text>
       <Text style={styles.desc}>{desc}</Text>
     </Card>
@@ -13,6 +13,9 @@ export default function DetailCard({ title, desc }) {
 }
 
 const styles = StyleSheet.create({
+  card: {
+    marginVertical: 5,
+  },
   title: {
     marginVertical: 10,
     fontFamily: "work-sans-bold",

@@ -34,7 +34,9 @@ export default function StateModal() {
     code: "tn",
   });
 
-  filterCtx.updateState(state.code);
+  useEffect(() => {
+    filterCtx.updateState(state.code);
+  }, [state]);
 
   function onStateSelectHandler(selected) {
     state.name = selected;
@@ -46,8 +48,6 @@ export default function StateModal() {
     });
 
     setState({ ...state });
-
-    filterCtx.updateState(state.code);
 
     setModalVisible(false);
   }

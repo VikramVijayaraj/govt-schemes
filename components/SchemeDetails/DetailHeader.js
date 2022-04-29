@@ -4,20 +4,16 @@ import colors from "../../config/colors";
 import Title from "../UI/Title";
 import Text from "../UI/Text";
 
-export default function DetailHeader() {
+export default function DetailHeader({ title, subtitle, date }) {
   return (
     <View style={styles.container}>
       <Image
         style={styles.image}
         source={require("../../assets/images/emblem.png")}
       />
-      <Title style={styles.title}>
-        Distribution of Certified Seeds of maize
-      </Title>
-      <Text style={styles.text}>
-        Agriculture and Farmers Welfare department
-      </Text>
-      <Text style={styles.text}>Posted on 3 March 2022</Text>
+      <Title style={styles.title}>{title}</Title>
+      <Text style={styles.text}>{subtitle}</Text>
+      <Text style={styles.text}>Posted on {date}</Text>
     </View>
   );
 }
