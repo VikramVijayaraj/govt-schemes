@@ -1,0 +1,38 @@
+{
+  "ap": "",
+  "ka": "",
+  "kl": {
+    "kl1": {
+      "avail": "To enroll in this scheme the beneficiary should pay an amount of Rs.500/- (for APL categories) and Rs.250/- (for BPL categories) as premium amount. For renewing this premium they should pay an amount of  Rs.250/- and Rs.50/- respectively.",
+      "beneficiary": " Differently Abled",
+      "benefits": "subsidy",
+      "department": "Department of Social Justice",
+      "description": "An affordable health insurance scheme for Persons with Disabilities covering under National Trust Act 1999. Through this scheme the beneficiaries can avail an insurance coverage up to 1 lakh and it would be renewed every year. Facility for OPD treatment including the medicines, pathology, diagnostic tests etc., regular medical checkup for non – ailing disabled, Dental preventive dentistry, surgery to prevent further aggravation of disability, non – surgical/hospitalization, corrective surgeries for existing disability, ongoing  therapies to reduce the impact of disability related complications , alternative medicine.",
+      "name": "NIRAMAYA HEALTH INSURANCE SCHEME",
+      "stateCode": "kl",
+      "stateName": "Kerala"
+    }
+  },
+  "tn": {
+    "tn1": {
+      "avail": "Headmaster of the school",
+      "beneficiary": "students",
+      "benefits": "Education Benefits",
+      "department": "Adi Dravidar and Tribal Welfare Department",
+      "description": "Public Examination fee for 10th and 12th Std. These amounts will be reimbursed to the Directorate of Government Examinations directly by Govt.. All Adi Dravidar/Tribal / Adi Dravidar Converted to Christianity students are eligible with no income limit",
+      "name": "Scholarship - Public Examination fee for 10th and 12th Std.",
+      "stateCode": "tn",
+      "stateName": "Tamil Nadu"
+    },
+    "tn2": {
+      "avail": "Apply to the concerned Department",
+      "beneficiary": "Government Employees",
+      "benefits": "Health Insurance",
+      "department": "Finance Department",
+      "description": "Under this scheme a sum of Rs.10/- is recovered as subscription every month from the Government employee. Assistance to the tune of 75% of the expenses or Rs.1.00 lakh whichever is less is granted to those who apply for assistance with the documents relating to treatment taken for ailments approved under the scheme.",
+      "name": "New Health Insurance Scheme",
+      "stateCode": "tn",
+      "stateName": "Tamil Nadu"
+    }
+  }
+}

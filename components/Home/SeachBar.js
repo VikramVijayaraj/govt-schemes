@@ -20,11 +20,10 @@ export default function SeachBar() {
   useEffect(() => {
     async function getSchemes() {
       setIsLoading(true);
-
       const schemes = await fetchSchemes(filterCtx.state);
-
       setStateSchemes([schemes]);
     }
+    
     getSchemes();
     setIsLoading(false);
   }, [filterCtx.state]);

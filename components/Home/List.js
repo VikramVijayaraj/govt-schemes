@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -21,7 +21,15 @@ import { SchemesCountContext } from "../../store/schemes-count-context";
 export default function List({ listItems, query }) {
   const countCtx = useContext(SchemesCountContext);
 
-  if (!listItems[0]) {
+  const stateArr = [];
+
+  listItems.map((item) => {
+    for (let key in item) {
+      stateArr.push(item[key]);
+    }
+  });
+
+  if (!stateArr[0]) {
     countCtx.updateSchemesCount(0);
 
     return (
@@ -32,22 +40,23 @@ export default function List({ listItems, query }) {
   }
 
   useEffect(() => {
-    countCtx.updateSchemesCount(listItems.length);
+    countCtx.updateSchemesCount(stateArr.length);
   });
 
   const navigation = useNavigation();
 
-  function onPressHandler() {
+  function onPressHandler(details) {
     console.log("Pressed!");
+    console.log(details);
     navigation.navigate("SchemeDetails");
   }
 
   let list;
 
   if (query) {
-    list = listItems.filter((item) => item.name.includes(query));
+    list = stateArr.filter((item) => item.name.includes(query));
   } else {
-    list = listItems;
+    list = stateArr;
   }
 
   return (
@@ -56,7 +65,7 @@ export default function List({ listItems, query }) {
         {list.map((item, index) => (
           <View key={index}>
             <Card style={styles.card}>
-              <Pressable onPress={onPressHandler}>
+              <Pressable onPress={onPressHandler.bind(this, item)}>
                 <View style={styles.header}>
                   <Image
                     style={styles.image}
