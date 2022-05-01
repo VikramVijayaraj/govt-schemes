@@ -23,7 +23,7 @@ export default function SeachBar() {
       const schemes = await fetchSchemes(filterCtx.state);
       setStateSchemes([schemes]);
     }
-    
+
     getSchemes();
     setIsLoading(false);
   }, [filterCtx.state]);
@@ -93,14 +93,10 @@ const styles = StyleSheet.create({
     color: colors.gray800,
   },
   inputContainer: {
-    // flex: 1,
-    // width: "80%",
+    flex: 1,
   },
   input: {
-    // flex: 1,
     color: colors.gray700,
-    // width: "100%",
-    // backgroundColor: "gold",
   },
   closeIconContainer: {},
 });

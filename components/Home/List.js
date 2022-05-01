@@ -69,7 +69,7 @@ export default function List({ listItems, query }) {
                     style={styles.image}
                     source={require("../../assets/images/emblem.png")}
                   />
-                  <View>
+                  <View style={styles.headerTitles}>
                     <Title style={styles.title}>{item.name}</Title>
                     <Text style={styles.subtitle}>{item.department}</Text>
                   </View>
@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   image: {
-    height: 50,
+    height: 60,
     width: 40,
     marginRight: 7,
   },
@@ -109,6 +109,9 @@ const styles = StyleSheet.create({
     fontFamily: "work-sans-regular",
     color: colors.gray700,
   },
+  headerTitles:{
+    flex: 1,
+  },
   tags: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -117,7 +120,6 @@ const styles = StyleSheet.create({
   },
   card: {
     marginHorizontal: 20,
-    paddingRight: 60,
   },
   highlight: {
     backgroundColor: colors.primary400,

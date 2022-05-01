@@ -23,6 +23,7 @@ import UpdateProfile from "./components/Profile/UpdateProfile";
 import UserContextProvider from "./store/user-context";
 import FilePreviewScreen from "./screens/FilePreviewScreen";
 import FilterContextProvider from "./store/filter-context";
+import AppliedContextProvider from "./store/applied-context";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -33,9 +34,9 @@ function AppBottomTabs() {
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: colors.tabs,
+          backgroundColor: colors.gray100,
         },
-        tabBarActiveTintColor: colors.gray100,
+        tabBarActiveTintColor: colors.primary400,
         // tabBarShowLabel: false,
       }}
     >
@@ -161,9 +162,9 @@ function Navigation() {
 
   return (
     <NavigationContainer>
-      {/* {!authCtx.isAuthenticated && <AuthStack />} */}
-      {/* {authCtx.isAuthenticated && <AuthenticatedStack />} */}
-      <AuthenticatedStack />
+      {!authCtx.isAuthenticated && <AuthStack />}
+      {authCtx.isAuthenticated && <AuthenticatedStack />}
+      {/* <AuthenticatedStack /> */}
     </NavigationContainer>
   );
 }
@@ -211,7 +212,9 @@ export default function App() {
         <AuthContextProvider>
           <UserContextProvider>
             <FilterContextProvider>
-              <Root />
+              <AppliedContextProvider>
+                <Root />
+              </AppliedContextProvider>
             </FilterContextProvider>
           </UserContextProvider>
         </AuthContextProvider>
