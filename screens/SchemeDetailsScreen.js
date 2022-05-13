@@ -10,6 +10,7 @@ import { storeAppliedSchemes } from "../util/applied";
 import { UserContext } from "../store/user-context";
 
 export default function SchemeDetails({ route }) {
+  console.log(route.params);
   const navigation = useNavigation();
 
   const appliedCtx = useContext(AppliedContext);
@@ -17,6 +18,8 @@ export default function SchemeDetails({ route }) {
 
   const { name, department, date, beneficiary, benefits, avail, description } =
     route.params.details;
+
+  const applied = route.params.applied;
 
   function btnPressHandler() {
     Alert.alert(
@@ -52,9 +55,12 @@ export default function SchemeDetails({ route }) {
           description={description}
         />
       </ScrollView>
-      <Button onPress={btnPressHandler} containerStyle={styles.floatButton}>
-        Apply
-      </Button>
+
+      {!applied && (
+        <Button onPress={btnPressHandler} containerStyle={styles.floatButton}>
+          Apply
+        </Button>
+      )}
     </>
   );
 }

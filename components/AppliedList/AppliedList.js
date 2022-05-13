@@ -1,5 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Pressable, Image, ScrollView } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Pressable,
+  Image,
+  ScrollView,
+  ActivityIndicator,
+} from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import { UserContext } from "../../store/user-context";
 import colors from "../../config/colors";
@@ -7,14 +15,20 @@ import Card from "../UI/Card";
 import Text from "../UI/Text";
 import Title from "../UI/Title";
 import { fetchAppliedSchemes } from "../../util/applied";
+import { AppliedContext } from "../../store/applied-context";
 
 export default function AppliedList({ listItems }) {
+  const navigation = useNavigation();
+
   const { userData } = useContext(UserContext);
+  const appliedCtx = useContext(AppliedContext);
+
   const [schemesList, setSchemesList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setSchemesList([]);
-
+    setIsLoading(true);
     async function getAppliedSchemes() {
       const schemes = await fetchAppliedSchemes(userData.uid);
       for (let key in schemes) {
@@ -23,11 +37,12 @@ export default function AppliedList({ listItems }) {
     }
 
     getAppliedSchemes();
-  }, []);
+    setIsLoading(false);
+  }, [appliedCtx.schemes]);
+
+  if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
 
   listItems = schemesList;
-
-  console.log(listItems);
 
   if (listItems.length === 0) {
     return (
@@ -37,34 +52,39 @@ export default function AppliedList({ listItems }) {
     );
   }
 
+  function onPressHandler(details) {
+    navigation.navigate("SchemeDetails", {
+      details: details,
+      applied: true,  
+    });
+  }
+
   return (
     <ScrollView style={styles.container}>
       {listItems.map((item, index) => (
-        <Pressable
-          style={styles.cardContainer}
-          android_ripple={colors.primary400}
-          key={index}
-        >
+        <View style={styles.cardContainer} key={index}>
           <Card style={styles.card}>
-            <View>
-              <View style={styles.header}>
-                <Image
-                  style={styles.image}
-                  source={require("../../assets/images/emblem.png")}
-                />
-                <View style={styles.headerTitles}>
-                  <Title style={styles.title}>{item.name}</Title>
-                  <Text style={styles.subtitle}>{item.department}</Text>
+            <Pressable onPress={onPressHandler.bind(this, item)}>
+              <View>
+                <View style={styles.header}>
+                  <Image
+                    style={styles.image}
+                    source={require("../../assets/images/emblem.png")}
+                  />
+                  <View style={styles.headerTitles}>
+                    <Title style={styles.title}>{item.name}</Title>
+                    <Text style={styles.subtitle}>{item.department}</Text>
+                  </View>
+                </View>
+
+                <View style={styles.tags}>
+                  <Text style={styles.highlight}>{item.beneficiary}</Text>
+                  <Text>{item.benefits}</Text>
                 </View>
               </View>
-
-              <View style={styles.tags}>
-                <Text style={styles.highlight}>{item.beneficiary}</Text>
-                <Text>{item.benefits}</Text>
-              </View>
-            </View>
+            </Pressable>
           </Card>
-        </Pressable>
+        </View>
       ))}
     </ScrollView>
   );

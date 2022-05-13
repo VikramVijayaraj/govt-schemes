@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     fontFamily: "work-sans-regular",
     color: colors.gray700,
   },
-  headerTitles:{
+  headerTitles: {
     flex: 1,
   },
   tags: {

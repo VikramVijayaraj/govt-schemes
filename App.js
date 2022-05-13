@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { useContext, useState, useEffect } from "react";
 import { View, StyleSheet } from "react-native";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
@@ -97,6 +97,7 @@ function AuthStack() {
 }
 
 function AuthenticatedStack() {
+  const navigation = useNavigation();
   return (
     <Stack.Navigator
       screenOptions={{
@@ -129,6 +130,14 @@ function AuthenticatedStack() {
           headerShown: true,
           headerTransparent: true,
           headerTintColor: colors.gray100,
+          headerLeft: () => (
+            <Ionicons
+              name="arrow-back"
+              size={25}
+              color="white"
+              onPress={() => navigation.navigate("Home")}
+            />
+          ),
         }}
       />
 

@@ -11,3 +11,5 @@ export async function fetchAppliedSchemes(uid) {
   const response = await axios.get(BASE_URL + `/users/${uid}/applied.json`);
   return response.data;
 }
+
+

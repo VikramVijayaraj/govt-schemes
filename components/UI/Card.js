@@ -1,4 +1,4 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Pressable } from "react-native";
 
 export default function Card({ children, style }) {
   return <View style={[styles.container, style]}>{children}</View>;

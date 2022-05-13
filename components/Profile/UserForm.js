@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, ToastAndroid } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
@@ -42,10 +42,18 @@ export default function UserForm() {
   async function submitHandler() {
     await storeUser(userData);
     navigation.navigate("Profile");
+    ToastAndroid.show("Profile updated !", ToastAndroid.SHORT);
   }
 
   return (
     <View style={styles.container}>
+      {/* <View>
+        <Image
+          style={styles.image}
+          source={require("../../assets/images/user-avatar.png")}
+        />
+        <Ionicons name="camera" size={30} style={styles.cameraIcon} />
+      </View> */}
       <View style={styles.row}>
         <Input
           label="First Name"
@@ -117,6 +125,17 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingHorizontal: 20,
   },
+  image: {
+    height: 70,
+    width: 70,
+    marginRight: 20,
+  },
+  cameraIcon: {
+    color: "#95D1CC",
+    position: "absolute",
+    top: 40,
+    left: 50,
+  },
   row: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -125,28 +144,5 @@ const styles = StyleSheet.create({
   updateBtn: {
     elevation: 4,
     marginVertical: 15,
-    // position: "absolute",
-    // bottom: 50,
   },
 });
-
-{
-  /* <UserFormRow
-        label1="First Name"
-        placeholder1="Sai"
-        icon1="pencil"
-        label2="Last Name"
-        placeholder2="Prasanth"
-        icon2="pencil"
-        userInputs={inputHandler}
-      />
-      <UserFormRow
-        label1="Date of birth"
-        placeholder1="DD-MM-YYYY"
-        icon1="calendar"
-        label2="Age"
-        placeholder2="0-99"
-        icon2="chevron-down"
-        userInputs={inputHandler}
-      /> */
-}

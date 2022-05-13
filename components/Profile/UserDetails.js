@@ -32,7 +32,7 @@ export default function UserDetails() {
   return (
     <View style={styles.container}>
       <Card style={styles.card}>
-        <Text>User Name</Text>
+        <Text>Name</Text>
         <Title>
           {userData.firstName} {userData.lastName}
         </Title>
