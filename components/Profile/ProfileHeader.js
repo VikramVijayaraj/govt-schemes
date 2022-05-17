@@ -37,7 +37,6 @@ export default function ProfileHeader() {
       type,
       url,
     };
-
     await addUserAvatar(userData.uid, imageData);
   }
 

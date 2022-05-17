@@ -34,6 +34,7 @@ export default function List({ listItems, query }) {
   countCtx.updateSchemesCount(stateArr.length);
 
   function onPressHandler(details) {
+    console.log(details);
     navigation.navigate("SchemeDetails", {
       details: details,
     });
@@ -52,7 +53,7 @@ export default function List({ listItems, query }) {
   let list;
 
   if (query) {
-    list = stateArr.filter((item) => item.name.includes(query));
+    list = stateArr.filter((item) => item.sname.includes(query));
   } else {
     list = stateArr;
   }
@@ -70,13 +71,21 @@ export default function List({ listItems, query }) {
                     source={require("../../assets/images/emblem.png")}
                   />
                   <View style={styles.headerTitles}>
-                    <Title style={styles.title}>{item.name}</Title>
-                    <Text style={styles.subtitle}>{item.department}</Text>
+                    <Title style={styles.title}>{item.sname}</Title>
+                    <Text style={styles.subtitle}>{item.status}</Text>
                   </View>
                 </View>
                 <View style={styles.tags}>
-                  <Text style={styles.highlight}>{item.beneficiary}</Text>
-                  <Text>{item.benefits}</Text>
+                  <Text style={styles.highlight}>{item.seligible}</Text>
+                  <Text
+                    style={
+                      item.status === "Active"
+                        ? { color: "green", fontSize:16 }
+                        : { color: "red", fontSize:16 }
+                    }
+                  >
+                    {item.status}
+                  </Text>
                 </View>
               </Pressable>
             </Card>

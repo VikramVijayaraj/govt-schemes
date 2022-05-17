@@ -55,7 +55,7 @@ export default function AppliedList({ listItems }) {
   function onPressHandler(details) {
     navigation.navigate("SchemeDetails", {
       details: details,
-      applied: true,  
+      applied: true,
     });
   }
 
@@ -72,14 +72,14 @@ export default function AppliedList({ listItems }) {
                     source={require("../../assets/images/emblem.png")}
                   />
                   <View style={styles.headerTitles}>
-                    <Title style={styles.title}>{item.name}</Title>
+                    <Title style={styles.title}>{item.sname}</Title>
                     <Text style={styles.subtitle}>{item.department}</Text>
                   </View>
                 </View>
 
                 <View style={styles.tags}>
-                  <Text style={styles.highlight}>{item.beneficiary}</Text>
-                  <Text>{item.benefits}</Text>
+                  <Text style={styles.highlight}>{item.seligible}</Text>
+                  <Text>{item.status}</Text>
                 </View>
               </View>
             </Pressable>

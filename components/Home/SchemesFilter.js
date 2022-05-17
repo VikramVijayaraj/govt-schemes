@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { View, StyleSheet, Pressable, Modal, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
 import Text from "../UI/Text";

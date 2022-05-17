@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { View, StyleSheet } from "react-native";
-import Button from "../UI/Button";
 import FlatButton from "../UI/FlatButton";
 
 export default function Filters({ filter }) {

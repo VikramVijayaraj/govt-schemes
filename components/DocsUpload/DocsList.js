@@ -58,9 +58,9 @@ export default function DocsList() {
   }
 
   function previewFile(file) {
-    navigation.navigate("FilePreview", {
-      fileData: file,
-    });
+    // navigation.navigate("FilePreview", {
+    //   fileData: file,
+    // });
   }
 
   return (

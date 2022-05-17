@@ -16,10 +16,8 @@ export default function DocsHeader() {
 
 const styles = StyleSheet.create({
   header: {
-    // flex: 1,
     alignItems: "center",
     paddingVertical: 20,
-    // backgroundColor: 'gold'
   },
   title: {
     textTransform: "uppercase",

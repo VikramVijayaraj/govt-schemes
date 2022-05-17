@@ -1,17 +1,12 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 
 import Text from "../components/UI/Text";
-import List from "../components/Home/List";
 import { AppliedContext } from "../store/applied-context";
 import AppliedList from "../components/AppliedList/AppliedList";
 
 export default function AppliedSchemesScreen() {
   const appliedCtx = useContext(AppliedContext);
-
-  // useEffect(() => {
-    // async getAppliedSchemes
-  // }, [])
 
   return (
     <View style={styles.container}>
