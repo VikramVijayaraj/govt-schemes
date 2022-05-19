@@ -36,7 +36,7 @@ function AppBottomTabs() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.gray100,
-          height: 60,
+          // height: 60,
         },
         tabBarActiveTintColor: colors.primary400,
         // tabBarShowLabel: false,
