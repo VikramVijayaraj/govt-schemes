@@ -21,7 +21,7 @@ const stateFilter = [
   },
   {
     name: "Karnataka",
-    code: "ka",
+    code: "kt",
   },
 ];
 

@@ -24,6 +24,7 @@ import UserContextProvider from "./store/user-context";
 import FilePreviewScreen from "./screens/FilePreviewScreen";
 import FilterContextProvider from "./store/filter-context";
 import AppliedContextProvider from "./store/applied-context";
+import BeneficiaryTypeScreen from "./screens/BeneficiaryTypeScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -35,6 +36,7 @@ function AppBottomTabs() {
         headerShown: false,
         tabBarStyle: {
           backgroundColor: colors.gray100,
+          height: 60,
         },
         tabBarActiveTintColor: colors.primary400,
         // tabBarShowLabel: false,
@@ -106,6 +108,7 @@ function AuthenticatedStack() {
         contentStyle: { color: "white" },
       }}
     >
+      {/* <Stack.Screen name="BeneficiaryType" component={BeneficiaryTypeScreen} /> */}
       <Stack.Screen name="AppBottomTabs" component={AppBottomTabs} />
 
       <Stack.Screen

@@ -34,7 +34,6 @@ export default function List({ listItems, query }) {
   countCtx.updateSchemesCount(stateArr.length);
 
   function onPressHandler(details) {
-    console.log(details);
     navigation.navigate("SchemeDetails", {
       details: details,
     });
@@ -72,7 +71,7 @@ export default function List({ listItems, query }) {
                   />
                   <View style={styles.headerTitles}>
                     <Title style={styles.title}>{item.sname}</Title>
-                    <Text style={styles.subtitle}>{item.status}</Text>
+                    <Text style={styles.subtitle}>{item.dept}</Text>
                   </View>
                 </View>
                 <View style={styles.tags}>

@@ -1,5 +1,4 @@
 import axios from "axios";
-// import { API_KEY } from "@env";
 
 const API_KEY = "AIzaSyCvWE4F1o5Tq7w9chrwGCR5tKhjP6b8d0E";
 
@@ -15,8 +14,6 @@ async function authenticate(mode, email, password) {
   const token = response.data.idToken;
   const userEmail = response.data.email;
   const uId = response.data.localId;
-
-  console.log(userEmail, uId);
 
   return { token, userEmail, uId };
 }

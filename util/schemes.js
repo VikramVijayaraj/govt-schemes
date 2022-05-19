@@ -8,7 +8,6 @@ const BASE_URL =
 
 export async function fetchSchemes(state) {
   const response = await axios.get(BASE_URL + `/schemes/${state}.json`);
-  // console.log(response.data);
   return response.data;
 }
 

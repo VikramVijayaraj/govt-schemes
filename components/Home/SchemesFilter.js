@@ -1,4 +1,4 @@
-import {  useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { View, StyleSheet, Pressable, Modal, ScrollView } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -7,27 +7,35 @@ import Text from "../UI/Text";
 import Title from "../UI/Title";
 import { departments, beneficiary } from "../../data/filters";
 import Filters from "./Filters";
+import { getBeneficiaries } from "../../helper/schemesInfo";
+import { FilterContext } from "../../store/filter-context";
 
 export default function SchemesFilter() {
-  const [isDepartments, setIsDepartments] = useState(true);
+  const filterCtx = useContext(FilterContext);
+
+  // const [isDepartments, setIsDepartments] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
-  const [filterData, setFilterData] = useState(filterList);
 
-  let filterList = isDepartments ? departments : beneficiary;
+  // let filterList = isDepartments ? departments : beneficiary;
 
-  function filterHandler() {
-    setIsDepartments(!isDepartments);
-  }
+  const [filterList, setFilterList] = useState([]);
 
-  function onItemSelectHandler(itemId) {
-    // console.log(itemId);
-    // const data = filterData;
-    // const index = data.findIndex((item) => item.id === itemId);
+  useEffect(() => {
+    async function showFilterList() {
+      const beneficiaryList = await getBeneficiaries();
+      setFilterList(["All", ...beneficiaryList]);
+    }
 
-    // data[index].checked = !data[index].checked;
+    showFilterList();
+  }, []);
 
-    // setFilterData(data);
-    // console.log(data);
+  // function filterHandler() {
+  //   setIsDepartments(!isDepartments);
+  // }
+
+  function onItemSelectHandler(item) {
+    // console.log(item);
+    filterCtx.updateBeneficiary(item);
     setModalVisible(false);
   }
 
@@ -49,13 +57,13 @@ export default function SchemesFilter() {
               size={30}
             />
 
-            <Filters filter={filterHandler} />
+            {/* <Filters filter={filterHandler} /> */}
 
             <View style={styles.modalList}>
-              {filterList.map((filterItem) => (
-                <View key={filterItem.id}>
+              {filterList.map((filterItem, idx) => (
+                <View key={idx}>
                   <Pressable
-                    onPress={onItemSelectHandler.bind(this, filterItem.id)}
+                    onPress={onItemSelectHandler.bind(this, filterItem)}
                     android_ripple={{ color: colors.gray800 }}
                   >
                     <View style={styles.modalItem}>
@@ -72,7 +80,7 @@ export default function SchemesFilter() {
                         color="black"
                       />
                     )} */}
-                      <Title style={styles.itemText}>{filterItem.item}</Title>
+                      <Title style={styles.itemText}>{filterItem}</Title>
                     </View>
                   </Pressable>
                 </View>

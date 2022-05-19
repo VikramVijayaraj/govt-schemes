@@ -14,7 +14,7 @@ export default function UserContextProvider({ children }) {
     category: "",
     maritalStatus: "",
     pwdStatus: "",
-    avatarURL: "",
+    beneficiaryType: "",
   });
 
   const value = { userData, setUserData };

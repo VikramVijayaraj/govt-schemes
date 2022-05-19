@@ -73,7 +73,7 @@ export default function AppliedList({ listItems }) {
                   />
                   <View style={styles.headerTitles}>
                     <Title style={styles.title}>{item.sname}</Title>
-                    <Text style={styles.subtitle}>{item.department}</Text>
+                    <Text style={styles.subtitle}>{item.dept}</Text>
                   </View>
                 </View>
 

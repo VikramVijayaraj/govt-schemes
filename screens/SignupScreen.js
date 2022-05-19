@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import {
   Alert,
@@ -14,6 +15,8 @@ import { UserContext } from "../store/user-context";
 import { createUser } from "../util/auth";
 
 function SignupScreen() {
+  const navigation = useNavigation();
+
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const authCtx = useContext(AuthContext);
@@ -40,6 +43,10 @@ function SignupScreen() {
 
   if (isAuthenticating) return <LoadingOverlay message="Creating user..." />;
 
+  // if (!isAuthenticating) {
+  //   navigation.navigate("BeneficiaryType");
+  // }
+
   return (
     <ScrollView>
       <KeyboardAvoidingView style={styles.screen} behavior="position">
@@ -57,19 +64,3 @@ const styles = StyleSheet.create({
     backgroundColor: colors.gray100,
   },
 });
-
-// import { View, StyleSheet } from "react-native";
-
-// import Text from "../components/UI/Text";
-
-// export default function SignupScreen() {
-//   return (
-//     <View style={styles.container}>
-//       <Text>Signup Screen!</Text>
-//     </View>
-//   );
-// }
-
-// const styles = StyleSheet.create({
-//   container: {},
-// });

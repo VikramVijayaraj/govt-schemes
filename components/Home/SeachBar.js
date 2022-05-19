@@ -9,6 +9,8 @@ import SchemesFilter from "./SchemesFilter";
 import { fetchSchemes } from "../../util/schemes";
 import { FilterContext } from "../../store/filter-context";
 import Text from "../UI/Text";
+import { getFilteredSchemes } from "../../helper/schemesInfo";
+import Beneficiary from "./Beneficiary";
 
 export default function SeachBar() {
   const filterCtx = useContext(FilterContext);
@@ -16,17 +18,25 @@ export default function SeachBar() {
   const [searchQuery, setSearchQuery] = useState("");
   const [stateSchemes, setStateSchemes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
+  // console.log(filterCtx.beneficiary);
   useEffect(() => {
     async function getSchemes() {
       setIsLoading(true);
-      const schemes = await fetchSchemes(filterCtx.state);
-      setStateSchemes([schemes]);
+      if (filterCtx.beneficiary === "All") {
+        const schemes = await fetchSchemes(filterCtx.state);
+        setStateSchemes([schemes]);
+      } else {
+        const response = await getFilteredSchemes(
+          filterCtx.state,
+          filterCtx.beneficiary
+        );
+        setStateSchemes([response]);
+      }
     }
 
     getSchemes();
     setIsLoading(false);
-  }, [filterCtx.state]);
+  }, [filterCtx.state, filterCtx.beneficiary]);
 
   if (isLoading) return <ActivityIndicator color="dodgerblue" size="large" />;
 
@@ -55,7 +65,10 @@ export default function SeachBar() {
 
       <View style={styles.info}>
         <SchemesCount />
-        <SchemesFilter />
+        <View style={styles.filterContainer}>
+          <Beneficiary />
+          <SchemesFilter />
+        </View>
       </View>
 
       {searchQuery ? (
@@ -98,5 +111,7 @@ const styles = StyleSheet.create({
   input: {
     color: colors.gray700,
   },
-  closeIconContainer: {},
+  filterContainer: {
+    flexDirection: "row",
+  },
 });

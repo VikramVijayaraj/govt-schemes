@@ -22,11 +22,11 @@ export default function Filters({ filter }) {
 
   return (
     <View style={styles.container}>
-      <View style={deptSelected ? styles.selected : styles.btnContainer}>
+      {/* <View style={deptSelected ? styles.selected : styles.btnContainer}>
         <FlatButton onPress={departmentsBtnHandler}>Departments</FlatButton>
-      </View>
+      </View> */}
       <View style={beneficiarySelected ? styles.selected : styles.btnContainer}>
-        <FlatButton onPress={beneficiaryBtnHandler}>Beneficiary</FlatButton>
+        <FlatButton onPress={beneficiaryBtnHandler}>Filter by Beneficiary</FlatButton>
       </View>
     </View>
   );
