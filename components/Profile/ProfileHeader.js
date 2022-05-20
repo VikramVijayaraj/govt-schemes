@@ -27,7 +27,8 @@ export default function ProfileHeader() {
     navigation.navigate("UpdateProfile");
   }
 
-  function logoutHandler() {
+  function logoutHandler() {  
+    setUserData({});
     authCtx.logout();
   }
 

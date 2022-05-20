@@ -27,7 +27,6 @@ function SignupScreen() {
   const { userData, setUserData } = useContext(UserContext);
 
   async function signupHandler({ email, password }) {
-    setUserData({});
     setIsAuthenticating(true);
 
     try {
@@ -37,8 +36,6 @@ function SignupScreen() {
       userData.email = userEmail;
       userData.uid = uId;
       setUserData({ ...userData });
-      console.log("//////////////");
-      console.log(userData);
     } catch (error) {
       Alert.alert(
         "Authentication failed!",
@@ -46,19 +43,13 @@ function SignupScreen() {
       );
       setIsAuthenticating(false);
     }
-    console.log("-----");
-    console.log(userData);
+
     navigation.navigate("BeneficiaryType", {
       user: userData,
     });
   }
 
   if (isAuthenticating) return <LoadingOverlay message="Creating user..." />;
-
-  // console.log(userData);
-  // if (userData.uid) {
-  //   navigation.navigate("BeneficiaryType");
-  // }
 
   return (
     <ScrollView>

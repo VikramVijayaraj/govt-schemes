@@ -9,7 +9,7 @@ export default function ProfileScreen() {
 
   useEffect(() => {
     setIsLoading(true);
-    setTimeout(() => {
+    setTimeout(() => {  
       setIsLoading(false);
     }, 500);
   }, []);
