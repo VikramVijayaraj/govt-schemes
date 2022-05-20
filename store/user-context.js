@@ -6,6 +6,7 @@ export default function UserContextProvider({ children }) {
   const [userData, setUserData] = useState({
     email: "",
     uid: "",
+    // applied: {},
     firstName: "",
     lastName: "",
     dateOfBirth: "",

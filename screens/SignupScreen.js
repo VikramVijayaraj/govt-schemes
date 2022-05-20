@@ -32,6 +32,8 @@ function SignupScreen() {
       userData.email = userEmail;
       userData.uid = uId;
       setUserData({ ...userData });
+      
+      navigation.navigate("BeneficiaryType");
     } catch (error) {
       Alert.alert(
         "Authentication failed!",

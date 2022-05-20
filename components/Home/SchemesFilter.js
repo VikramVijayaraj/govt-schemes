@@ -9,9 +9,12 @@ import { departments, beneficiary } from "../../data/filters";
 import Filters from "./Filters";
 import { getBeneficiaries } from "../../helper/schemesInfo";
 import { FilterContext } from "../../store/filter-context";
+import { UserContext } from "../../store/user-context";
 
 export default function SchemesFilter() {
   const filterCtx = useContext(FilterContext);
+  const { userData, setUserData } = useContext(UserContext);
+  // console.log(userData);
 
   // const [isDepartments, setIsDepartments] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,7 +28,7 @@ export default function SchemesFilter() {
       const beneficiaryList = await getBeneficiaries();
       setFilterList(["All", ...beneficiaryList]);
     }
-
+    
     showFilterList();
   }, []);
 
@@ -34,7 +37,10 @@ export default function SchemesFilter() {
   // }
 
   function onItemSelectHandler(item) {
-    // console.log(item);
+    userData.beneficiaryType = item;
+    setUserData({ ...userData });
+    console.log("Filter");
+    console.log(userData);
     filterCtx.updateBeneficiary(item);
     setModalVisible(false);
   }

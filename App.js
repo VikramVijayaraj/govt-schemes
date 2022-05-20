@@ -108,8 +108,9 @@ function AuthenticatedStack() {
         contentStyle: { color: "white" },
       }}
     >
-      {/* <Stack.Screen name="BeneficiaryType" component={BeneficiaryTypeScreen} /> */}
       <Stack.Screen name="AppBottomTabs" component={AppBottomTabs} />
+      
+      <Stack.Screen name="BeneficiaryType" component={BeneficiaryTypeScreen} />
 
       <Stack.Screen
         name="SchemeDetails"

@@ -11,17 +11,32 @@ import { FilterContext } from "../../store/filter-context";
 import Text from "../UI/Text";
 import { getFilteredSchemes } from "../../helper/schemesInfo";
 import Beneficiary from "./Beneficiary";
+import { UserContext } from "../../store/user-context";
+import { fetchUser } from "../../util/user";
 
 export default function SeachBar() {
   const filterCtx = useContext(FilterContext);
+  const { userData, setUserData } = useContext(UserContext);
 
   const [searchQuery, setSearchQuery] = useState("");
   const [stateSchemes, setStateSchemes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // console.log(filterCtx.beneficiary);
+
   useEffect(() => {
+    setIsLoading(true);
+    async function getUserData() {
+      const user = await fetchUser(userData.uid);
+      setUserData({ ...user });
+    }
+    getUserData();
+    setIsLoading(false);
+  }, []);
+
+  filterCtx.beneficiary = userData.beneficiaryType;
+
+  useEffect(() => {
+    setIsLoading(true);
     async function getSchemes() {
-      setIsLoading(true);
       if (filterCtx.beneficiary === "All") {
         const schemes = await fetchSchemes(filterCtx.state);
         setStateSchemes([schemes]);

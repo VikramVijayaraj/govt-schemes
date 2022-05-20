@@ -33,6 +33,7 @@ function LoginScreen() {
       userData.uid = uId;
       setUserData({ ...userData });
 
+      // navigation.navigate("BeneficiaryType");
       // navigation.navigate("AuthenticatedStack", { screen: "BeneficiaryType" });
     } catch (error) {
       Alert.alert(

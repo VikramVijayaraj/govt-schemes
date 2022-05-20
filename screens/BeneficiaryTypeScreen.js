@@ -7,12 +7,15 @@ import Text from "../components/UI/Text";
 import Title from "../components/UI/Title";
 import colors from "../config/colors";
 import { getBeneficiaries } from "../helper/schemesInfo";
+import { FilterContext } from "../store/filter-context";
 import { UserContext } from "../store/user-context";
+import { storeUser } from "../util/user";
 
 export default function BeneficiaryTypeScreen() {
   const navigation = useNavigation();
 
   const { userData, setUserData } = useContext(UserContext);
+  const filterCtx = useContext(FilterContext);
 
   const [beneficiaryList, setBeneficiaryList] = useState([]);
   const [eligible, setEligible] = useState("");
@@ -31,12 +34,13 @@ export default function BeneficiaryTypeScreen() {
   }
 
   function btnHandler() {
-    console.log(eligible);
     userData.beneficiaryType = eligible;
     setUserData({ ...userData });
+    filterCtx.updateBeneficiary(eligible);
+    storeUser(userData);
     navigation.navigate("AppBottomTabs");
   }
-  console.log(userData);
+
   return (
     <View style={styles.container}>
       <Title>Select Beneficiary</Title>
