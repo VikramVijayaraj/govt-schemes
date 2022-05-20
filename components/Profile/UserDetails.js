@@ -46,6 +46,10 @@ export default function UserDetails() {
         <Title>{userData.age}</Title>
       </Card>
       <Card style={styles.card}>
+        <Text>Beneficiary Type</Text>
+        <Title>{userData.beneficiaryType}</Title>
+      </Card>
+      <Card style={styles.card}>
         <Text>Gender</Text>
         <Title>{userData.gender}</Title>
       </Card>

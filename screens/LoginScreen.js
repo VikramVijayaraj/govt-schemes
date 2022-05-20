@@ -1,4 +1,3 @@
-import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import {
   Alert,
@@ -15,8 +14,6 @@ import { UserContext } from "../store/user-context";
 import { login } from "../util/auth";
 
 function LoginScreen() {
-  const navigation = useNavigation();
-
   const [isAuthenticating, setIsAuthenticating] = useState(false);
 
   const authCtx = useContext(AuthContext);
@@ -32,9 +29,6 @@ function LoginScreen() {
       userData.email = userEmail;
       userData.uid = uId;
       setUserData({ ...userData });
-
-      // navigation.navigate("BeneficiaryType");
-      // navigation.navigate("AuthenticatedStack", { screen: "BeneficiaryType" });
     } catch (error) {
       Alert.alert(
         "Authentication failed!",
@@ -45,10 +39,6 @@ function LoginScreen() {
   }
 
   if (isAuthenticating) return <LoadingOverlay message="Logging you in..." />;
-
-  // if (!isAuthenticating) {
-  //   navigation.navigate("BeneficiaryType");
-  // }
 
   return (
     <ScrollView style={styles.screen}>

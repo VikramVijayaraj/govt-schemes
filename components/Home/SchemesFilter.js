@@ -28,7 +28,7 @@ export default function SchemesFilter() {
       const beneficiaryList = await getBeneficiaries();
       setFilterList(["All", ...beneficiaryList]);
     }
-    
+
     showFilterList();
   }, []);
 
@@ -39,8 +39,6 @@ export default function SchemesFilter() {
   function onItemSelectHandler(item) {
     userData.beneficiaryType = item;
     setUserData({ ...userData });
-    console.log("Filter");
-    console.log(userData);
     filterCtx.updateBeneficiary(item);
     setModalVisible(false);
   }

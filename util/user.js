@@ -10,7 +10,7 @@ export function storeUser(userData) {
 
 export async function fetchUser(uid) {
   const response = await axios.get(BASE_URL + `/users/${uid}.json`);
-  return response.data;
+  return response.data; 
 }
 
 export function updateUser(uid, folder, userData) {

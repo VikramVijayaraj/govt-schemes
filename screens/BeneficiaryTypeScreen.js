@@ -11,8 +11,11 @@ import { FilterContext } from "../store/filter-context";
 import { UserContext } from "../store/user-context";
 import { storeUser } from "../util/user";
 
-export default function BeneficiaryTypeScreen() {
+export default function BeneficiaryTypeScreen({ route }) {
   const navigation = useNavigation();
+
+  const user = route.params.user;
+  console.log(route.params);
 
   const { userData, setUserData } = useContext(UserContext);
   const filterCtx = useContext(FilterContext);
@@ -34,10 +37,13 @@ export default function BeneficiaryTypeScreen() {
   }
 
   function btnHandler() {
-    userData.beneficiaryType = eligible;
-    setUserData({ ...userData });
+    console.log("**********");
+    console.log(user);
+
+    setUserData({ ...user, beneficiaryType: eligible });
+
     filterCtx.updateBeneficiary(eligible);
-    storeUser(userData);
+    storeUser({ ...user, beneficiaryType: eligible });
     navigation.navigate("AppBottomTabs");
   }
 

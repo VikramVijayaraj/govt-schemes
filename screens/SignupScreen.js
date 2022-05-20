@@ -14,6 +14,9 @@ import { AuthContext } from "../store/auth-context";
 import { UserContext } from "../store/user-context";
 import { createUser } from "../util/auth";
 
+import { LogBox } from "react-native";
+LogBox.ignoreAllLogs(); //Ignore all log notifications
+
 function SignupScreen() {
   const navigation = useNavigation();
 
@@ -24,7 +27,9 @@ function SignupScreen() {
   const { userData, setUserData } = useContext(UserContext);
 
   async function signupHandler({ email, password }) {
+    setUserData({});
     setIsAuthenticating(true);
+
     try {
       const { token, userEmail, uId } = await createUser(email, password);
       authCtx.authenticate(token);
@@ -32,8 +37,8 @@ function SignupScreen() {
       userData.email = userEmail;
       userData.uid = uId;
       setUserData({ ...userData });
-      
-      navigation.navigate("BeneficiaryType");
+      console.log("//////////////");
+      console.log(userData);
     } catch (error) {
       Alert.alert(
         "Authentication failed!",
@@ -41,11 +46,17 @@ function SignupScreen() {
       );
       setIsAuthenticating(false);
     }
+    console.log("-----");
+    console.log(userData);
+    navigation.navigate("BeneficiaryType", {
+      user: userData,
+    });
   }
 
   if (isAuthenticating) return <LoadingOverlay message="Creating user..." />;
 
-  // if (!isAuthenticating) {
+  // console.log(userData);
+  // if (userData.uid) {
   //   navigation.navigate("BeneficiaryType");
   // }
 

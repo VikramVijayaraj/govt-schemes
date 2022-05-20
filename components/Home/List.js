@@ -1,12 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Image,
-  Pressable,
-  ActivityIndicator,
-} from "react-native";
+import { useContext } from "react";
+import { View, StyleSheet, ScrollView, Image, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import colors from "../../config/colors";
@@ -79,8 +72,8 @@ export default function List({ listItems, query }) {
                   <Text
                     style={
                       item.status === "Active"
-                        ? { color: "green", fontSize:16 }
-                        : { color: "red", fontSize:16 }
+                        ? { color: "green", fontSize: 16 }
+                        : { color: "red", fontSize: 16 }
                     }
                   >
                     {item.status}
