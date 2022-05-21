@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,6 +6,7 @@ import {
   Image,
   ScrollView,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -25,6 +26,7 @@ export default function AppliedList({ listItems }) {
 
   const [schemesList, setSchemesList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     setSchemesList([]);
@@ -39,7 +41,16 @@ export default function AppliedList({ listItems }) {
 
     getAppliedSchemes();
     setIsLoading(false);
-  }, [appliedCtx.schemes]);
+  }, [appliedCtx.schemes, refreshing]);
+
+  const wait = (timeout) => {
+    return new Promise((resolve) => setTimeout(resolve, timeout));
+  };
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
 
@@ -61,7 +72,12 @@ export default function AppliedList({ listItems }) {
   }
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }
+    >
       {listItems.map((item, index) => (
         <View style={styles.cardContainer} key={index}>
           <Card style={styles.card}>
@@ -80,7 +96,15 @@ export default function AppliedList({ listItems }) {
 
                 <View style={styles.tags}>
                   <Text style={styles.highlight}>{item.seligible}</Text>
-                  <Text>{item.status}</Text>
+                  <Text
+                    style={
+                      item.status === "Active"
+                        ? { color: "green" }
+                        : { color: "red" }
+                    }
+                  >
+                    {item.status}
+                  </Text>
                 </View>
 
                 <View style={styles.statusContainer}>
@@ -176,17 +200,17 @@ const styles = StyleSheet.create({
   approved: {
     color: "green",
     fontWeight: "bold",
-    marginLeft: 10,
+    marginLeft: 5,
   },
   rejected: {
     color: "red",
     fontWeight: "bold",
-    marginLeft: 10,
+    marginLeft: 5,
   },
   pending: {
     color: "orange",
     fontWeight: "bold",
-    marginLeft: 10,
+    marginLeft: 5,
   },
   remark: {
     marginTop: 20,
