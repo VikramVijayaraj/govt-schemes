@@ -18,7 +18,7 @@ import Title from "../UI/Title";
 import { fetchAppliedSchemes } from "../../util/applied";
 import { AppliedContext } from "../../store/applied-context";
 
-export default function AppliedList({ listItems }) {
+export default function AppliedList() {
   const navigation = useNavigation();
 
   const { userData } = useContext(UserContext);
@@ -30,12 +30,18 @@ export default function AppliedList({ listItems }) {
 
   useEffect(() => {
     setSchemesList([]);
+  }, [refreshing]);
+
+  useEffect(() => {
     setIsLoading(true);
+    setSchemesList([]);
 
     async function getAppliedSchemes() {
       const schemes = await fetchAppliedSchemes(userData.uid);
-      for (let key in schemes) {
-        setSchemesList((currentSchemes) => [...currentSchemes, schemes[key]]);
+      if (schemesList.length === 0) {
+        for (let key in schemes) {
+          setSchemesList((currentSchemes) => [...currentSchemes, schemes[key]]);
+        }
       }
     }
 
@@ -49,20 +55,20 @@ export default function AppliedList({ listItems }) {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    wait(400).then(() => setRefreshing(false));
+    wait(100).then(() => setRefreshing(false));
   }, []);
 
   if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
 
-  listItems = schemesList;
+  const listItems = schemesList;
 
-  if (listItems.length === 0) {
-    return (
-      <View style={styles.nothing}>
-        <Text>No schemes found!</Text>
-      </View>
-    );
-  }
+  // if (listItems.length === 0) {
+  //   return (
+  //     <View style={styles.nothing}>
+  //       <Text>No schemes found!</Text>
+  //     </View>
+  //   );
+  // }
 
   function onPressHandler(details) {
     navigation.navigate("SchemeDetails", {
@@ -109,9 +115,7 @@ export default function AppliedList({ listItems }) {
 
                 <View style={styles.statusContainer}>
                   <View style={styles.trackContainer}>
-                    <Text className={styles.trackLabel}>
-                      Application Status:
-                    </Text>
+                    <Text className={styles.trackLabel}>Status:</Text>
                     <Text
                       style={
                         item.trackStatus

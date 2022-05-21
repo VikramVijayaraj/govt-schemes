@@ -65,11 +65,13 @@ const styles = StyleSheet.create({
   buttons: {
     marginTop: 50,
     flexDirection: "row",
+    overflow: "hidden",
   },
   button: {
     flex: 1,
     backgroundColor: colors.gray800,
     margin: 10,
-    marginTop: 100,
+    marginTop: 70,
+    overflow: "hidden",
   },
 });
