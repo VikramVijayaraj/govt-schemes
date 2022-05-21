@@ -49,7 +49,7 @@ export default function AppliedList({ listItems }) {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    wait(2000).then(() => setRefreshing(false));
+    wait(400).then(() => setRefreshing(false));
   }, []);
 
   if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
