@@ -29,6 +29,7 @@ export default function AppliedList({ listItems }) {
   useEffect(() => {
     setSchemesList([]);
     setIsLoading(true);
+
     async function getAppliedSchemes() {
       const schemes = await fetchAppliedSchemes(userData.uid);
       for (let key in schemes) {
@@ -80,6 +81,34 @@ export default function AppliedList({ listItems }) {
                 <View style={styles.tags}>
                   <Text style={styles.highlight}>{item.seligible}</Text>
                   <Text>{item.status}</Text>
+                </View>
+
+                <View style={styles.statusContainer}>
+                  <View style={styles.trackContainer}>
+                    <Text className={styles.trackLabel}>
+                      Application Status:
+                    </Text>
+                    <Text
+                      style={
+                        item.trackStatus
+                          ? item.trackStatus === "Approved"
+                            ? styles.approved
+                            : styles.rejected
+                          : styles.pending
+                      }
+                    >
+                      {item.trackStatus ? item.trackStatus : "Pending"}
+                    </Text>
+                  </View>
+
+                  <View>
+                    {item.trackStatus === "Rejected" && (
+                      <View>
+                        {/* <Text className={styles.remark}>Remark:</Text> */}
+                        <Text>{item.remark}</Text>
+                      </View>
+                    )}
+                  </View>
                 </View>
               </View>
             </Pressable>
@@ -133,5 +162,33 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     paddingVertical: 5,
     paddingHorizontal: 10,
+  },
+  statusContainer: {
+    backgroundColor: colors.gray300,
+    padding: 10,
+    marginTop: 15,
+    borderRadius: 10,
+  },
+  trackContainer: {
+    flexDirection: "row",
+  },
+  trackLabel: {},
+  approved: {
+    color: "green",
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+  rejected: {
+    color: "red",
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+  pending: {
+    color: "orange",
+    fontWeight: "bold",
+    marginLeft: 10,
+  },
+  remark: {
+    marginTop: 20,
   },
 });
