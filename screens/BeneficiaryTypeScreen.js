@@ -39,7 +39,7 @@ export default function BeneficiaryTypeScreen({ route }) {
     filterCtx.updateBeneficiary(eligible);
 
     storeUser({ ...user, beneficiaryType: eligible });
-    navigation.navigate("AppBottomTabs");
+    navigation.navigate("CreateProfile");
   }
 
   return (

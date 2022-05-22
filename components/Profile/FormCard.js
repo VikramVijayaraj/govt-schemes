@@ -38,7 +38,7 @@ export default function FormCard({ label, text1, text2, pressed }) {
           </Text>
         </Button>
         <Button
-          containerStyle={isToggle2 ? styles.toggle : styles.button}
+          containerStyle={isToggle2 ? styles.toggleBtn : styles.button}
           onPress={toogleButtonHandler2}
         >
           <Text style={isToggle2 ? styles.toggleText : styles.text}>
@@ -56,16 +56,19 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
     paddingTop: 10,
   },
   button: {
     backgroundColor: colors.gray100,
     borderWidth: 1,
     borderColor: colors.primary400,
+    flex: 1,
+    marginHorizontal: 5,
   },
   toggleBtn: {
+    flex: 1,
     backgroundColor: colors.primary400,
+    marginHorizontal: 5,
   },
   toggleText: {
     color: colors.gray100,

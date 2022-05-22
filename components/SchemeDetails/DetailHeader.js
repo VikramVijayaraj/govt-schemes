@@ -4,7 +4,7 @@ import colors from "../../config/colors";
 import Title from "../UI/Title";
 import Text from "../UI/Text";
 
-export default function DetailHeader({ title, subtitle, date }) {
+export default function DetailHeader({ title, subtitle, status }) {
   return (
     <View style={styles.container}>
       <Image
@@ -13,7 +13,15 @@ export default function DetailHeader({ title, subtitle, date }) {
       />
       <Title style={styles.title}>{title}</Title>
       <Text style={styles.text}>{subtitle}</Text>
-      <Text style={styles.text}>Posted on {date}</Text>
+      <Text
+        style={
+          status === "Active"
+            ? [styles.status, { color: "green" }]
+            : [styles.status, { color: "red" }]
+        }
+      >
+        {status}
+      </Text>
     </View>
   );
 }
@@ -36,5 +44,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: colors.gray300,
+  },
+  status: {
+    backgroundColor: colors.gray300,
+    width: 70,
+    textAlign: "center",
+    marginTop: 10,
+    borderRadius: 10,
+    fontWeight: "bold",
   },
 });

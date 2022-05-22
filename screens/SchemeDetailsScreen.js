@@ -16,7 +16,7 @@ export default function SchemeDetails({ route }) {
   const appliedCtx = useContext(AppliedContext);
   const { userData } = useContext(UserContext);
 
-  const { sname, department, date, status, seligible, sbenefit, sdocs, sdetail } =
+  const { sname, dept, date, status, seligible, sbenefit, sdocs, sdetail } =
     route.params.details;
 
   const applied = route.params.applied;
@@ -47,7 +47,7 @@ export default function SchemeDetails({ route }) {
   return (
     <>
       <ScrollView style={styles.container}>
-        <DetailHeader title={sname} subtitle={department} date={date} />
+        <DetailHeader title={sname} subtitle={dept} status={status} />
         <DetailList
           beneficiary={seligible}
           benefits={sbenefit}

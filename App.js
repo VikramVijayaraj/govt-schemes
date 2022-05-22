@@ -25,6 +25,7 @@ import FilePreviewScreen from "./screens/FilePreviewScreen";
 import FilterContextProvider from "./store/filter-context";
 import AppliedContextProvider from "./store/applied-context";
 import BeneficiaryTypeScreen from "./screens/BeneficiaryTypeScreen";
+import CreateProfileScreen from "./screens/CreateProfileScreen";
 
 const Stack = createNativeStackNavigator();
 const BottomTabs = createBottomTabNavigator();
@@ -111,6 +112,7 @@ function AuthenticatedStack() {
       <Stack.Screen name="AppBottomTabs" component={AppBottomTabs} />
 
       <Stack.Screen name="BeneficiaryType" component={BeneficiaryTypeScreen} />
+      <Stack.Screen name="CreateProfile" component={CreateProfileScreen} />
 
       <Stack.Screen
         name="SchemeDetails"
@@ -120,9 +122,9 @@ function AuthenticatedStack() {
           headerShown: true,
           headerTransparent: true,
           headerTintColor: colors.gray100,
-          headerRight: () => (
-            <Ionicons name="star-outline" size={20} color={colors.gray100} />
-          ),
+          // headerRight: () => (
+          //   <Ionicons name="star-outline" size={20} color={colors.gray100} />
+          // ),
         }}
       />
 

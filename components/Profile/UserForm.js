@@ -8,8 +8,9 @@ import Input from "../UI/Input";
 import Button from "./Button";
 import { UserContext } from "../../store/user-context";
 import { storeUser } from "../../util/user";
+import Text from "../UI/Text";
 
-export default function UserForm() {
+export default function UserForm({ create }) {
   const { userData, setUserData } = useContext(UserContext);
 
   const navigation = useNavigation();
@@ -41,8 +42,14 @@ export default function UserForm() {
 
   async function submitHandler() {
     await storeUser(userData);
-    navigation.navigate("Profile");
-    ToastAndroid.show("Profile updated !", ToastAndroid.SHORT);
+
+    if (create) {
+      navigation.navigate("AppBottomTabs");
+      ToastAndroid.show("Profile Added!", ToastAndroid.SHORT);
+    } else {
+      navigation.navigate("Profile");
+      ToastAndroid.show("Profile updated!", ToastAndroid.SHORT);
+    }
   }
 
   return (
@@ -113,7 +120,7 @@ export default function UserForm() {
       />
 
       <Button containerStyle={styles.updateBtn} onPress={submitHandler}>
-        Update Profile
+        <Text style={styles.btnText}>{create ? "Add Profile" : "Update Profile"}</Text>
       </Button>
     </View>
   );
@@ -144,5 +151,11 @@ const styles = StyleSheet.create({
   updateBtn: {
     elevation: 4,
     marginVertical: 15,
+    borderRadius: 10,
+    width: "100%",
   },
+  btnText: {
+    color: 'white',
+    fontSize: 18,
+  }
 });
