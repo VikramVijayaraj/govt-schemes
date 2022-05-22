@@ -27,8 +27,6 @@ export default function UserDetails() {
     setIsLoading(false);
   }, []);
 
-  // if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
-
   return (
     <View style={styles.container}>
       <Card style={styles.card}>

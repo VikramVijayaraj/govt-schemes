@@ -72,16 +72,12 @@ export default function SeachBar() {
             />
           </View>
         </View>
-
-        {/* <View style={styles.closeIconContainer}>
-          {searchQuery && <Ionicons name="close" color={colors.gray800} />}
-        </View> */}
       </View>
 
       <View style={styles.info}>
         <SchemesCount />
         <View style={styles.filterContainer}>
-          <Beneficiary />
+          {/* <Beneficiary /> */}
           <SchemesFilter />
         </View>
       </View>

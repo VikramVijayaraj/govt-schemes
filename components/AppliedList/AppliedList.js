@@ -130,10 +130,16 @@ export default function AppliedList() {
                   </View>
 
                   <View>
-                    {item.trackStatus === "Rejected" && (
+                    {item.trackStatus === "Rejected" ? (
                       <View>
-                        {/* <Text className={styles.remark}>Remark:</Text> */}
-                        <Text>{item.remark}</Text>
+                        <Text style={styles.ref}>Remark:</Text>
+                        <Text style={styles.refid}>{item.remark}</Text>
+                      </View>
+                    ) : (
+                      <View>
+                        {console.log(item.refID)}
+                        <Text style={styles.ref}>Reference ID:</Text>
+                        <Text style={styles.refid}>{item.refID}</Text>
                       </View>
                     )}
                   </View>
@@ -218,5 +224,11 @@ const styles = StyleSheet.create({
   },
   remark: {
     marginTop: 20,
+  },
+  ref: {
+    paddingTop: 10,
+  },
+  refid: {
+    fontWeight: "bold",
   },
 });

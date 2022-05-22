@@ -7,7 +7,7 @@ import FormCard from "./FormCard";
 import Input from "../UI/Input";
 import Button from "./Button";
 import { UserContext } from "../../store/user-context";
-import { storeUser, updateUserProfile } from "../../util/user";
+import {  updateUserProfile } from "../../util/user";
 import Text from "../UI/Text";
 
 export default function UserForm({ create }) {
@@ -54,13 +54,6 @@ export default function UserForm({ create }) {
 
   return (
     <View style={styles.container}>
-      {/* <View>
-        <Image
-          style={styles.image}
-          source={require("../../assets/images/user-avatar.png")}
-        />
-        <Ionicons name="camera" size={30} style={styles.cameraIcon} />
-      </View> */}
       <View style={styles.row}>
         <Input
           label="First Name"
