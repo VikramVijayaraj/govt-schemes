@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import { View, StyleSheet, Image, Pressable, ToastAndroid } from "react-native";
+import { View, StyleSheet, Image, Pressable, ToastAndroid, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import * as DocumentPicker from "expo-document-picker";
@@ -22,12 +22,13 @@ export default function ProfileHeader() {
   const { userData, setUserData } = useContext(UserContext);
 
   const [userAvatar, setUserAvatar] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   function editHandler() {
     navigation.navigate("UpdateProfile");
   }
 
-  function logoutHandler() {  
+  function logoutHandler() {
     setUserData({});
     authCtx.logout();
   }
@@ -68,6 +69,8 @@ export default function ProfileHeader() {
 
   const pickImage = async () => {
     const result = await DocumentPicker.getDocumentAsync({});
+
+    setIsLoading(true);
     const uploadURL = await uploadImageAsync(result.uri, result.name);
 
     await updateUserAvatar(result.mimeType, result.name, uploadURL);
@@ -76,6 +79,7 @@ export default function ProfileHeader() {
     setUserData({ ...userData });
     setUserAvatar(uploadURL);
 
+    setIsLoading(false);
     ToastAndroid.show("Profile picture updated !", ToastAndroid.SHORT);
   };
 
@@ -96,11 +100,23 @@ export default function ProfileHeader() {
         <View style={styles.leftSection}>
           <Pressable onPress={pickImage} style={styles.imageContainer}>
             {userAvatar ? (
-              <Image style={styles.image} source={{ uri: userAvatar }} />
+              <View>
+                {isLoading ? (
+                  <ActivityIndicator
+                    style={styles.image}
+                    size="large"
+                    color="dodgerblue"
+                  />
+                ) : (
+                  <Image style={styles.image} source={{ uri: userAvatar }} />
+                )}
+              </View>
             ) : (
               <Image style={styles.image} source={defaultImage} />
             )}
-            <Ionicons name="camera" size={30} style={styles.cameraIcon} />
+            {!isLoading && (
+              <Ionicons name="camera" size={30} style={styles.cameraIcon} />
+            )}
           </Pressable>
 
           <View style={styles.text}>

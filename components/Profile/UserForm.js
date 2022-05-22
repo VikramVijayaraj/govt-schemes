@@ -7,7 +7,7 @@ import FormCard from "./FormCard";
 import Input from "../UI/Input";
 import Button from "./Button";
 import { UserContext } from "../../store/user-context";
-import { storeUser } from "../../util/user";
+import { storeUser, updateUserProfile } from "../../util/user";
 import Text from "../UI/Text";
 
 export default function UserForm({ create }) {
@@ -40,8 +40,8 @@ export default function UserForm({ create }) {
     });
   }
 
-  async function submitHandler() {
-    await storeUser(userData);
+  function submitHandler() {
+    updateUserProfile(userData);
 
     if (create) {
       navigation.navigate("AppBottomTabs");
@@ -120,7 +120,9 @@ export default function UserForm({ create }) {
       />
 
       <Button containerStyle={styles.updateBtn} onPress={submitHandler}>
-        <Text style={styles.btnText}>{create ? "Add Profile" : "Update Profile"}</Text>
+        <Text style={styles.btnText}>
+          {create ? "Add Profile" : "Update Profile"}
+        </Text>
       </Button>
     </View>
   );
@@ -155,7 +157,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   btnText: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-  }
+  },
 });

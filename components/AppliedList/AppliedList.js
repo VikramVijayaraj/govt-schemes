@@ -62,13 +62,13 @@ export default function AppliedList() {
 
   const listItems = schemesList;
 
-  // if (listItems.length === 0) {
-  //   return (
-  //     <View style={styles.nothing}>
-  //       <Text>No schemes found!</Text>
-  //     </View>
-  //   );
-  // }
+  if (listItems.length === 0) {
+    return (
+      <View style={styles.nothing}>
+        <Text>No schemes found!</Text>
+      </View>
+    );
+  }
 
   function onPressHandler(details) {
     navigation.navigate("SchemeDetails", {

@@ -26,5 +26,10 @@ export function addUserAvatar(uid, avatarData) {
 
 export async function fetchUserAvatar(uid) {
   const response = await axios.get(BASE_URL + `/users/${uid}/avatar.json`);
+  console.log(uid);
   return response.data;
+}
+
+export function updateUserProfile(userData) {
+  axios.patch(BASE_URL + `/users/${userData.uid}.json`, userData);
 }
