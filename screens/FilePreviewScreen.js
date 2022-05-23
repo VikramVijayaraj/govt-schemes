@@ -1,4 +1,4 @@
-import { View, StyleSheet, Dimensions } from "react-native";
+import { View, StyleSheet } from "react-native";
 import { WebView } from "react-native-webview";
 
 import Text from "../components/UI/Text";

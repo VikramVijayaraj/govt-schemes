@@ -29,18 +29,16 @@ export default function AppliedList() {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    setSchemesList([]);
-  }, [refreshing]);
-
-  useEffect(() => {
     setIsLoading(true);
-    setSchemesList([]);
 
     async function getAppliedSchemes() {
       const schemes = await fetchAppliedSchemes(userData.uid);
       if (schemesList.length === 0) {
         for (let key in schemes) {
           setSchemesList((currentSchemes) => [...currentSchemes, schemes[key]]);
+          console.log("%%%%%");
+          console.log(schemes[key].sname);
+          appliedCtx.applyScheme(schemes[key]);
         }
       }
     }
@@ -55,12 +53,36 @@ export default function AppliedList() {
 
   const onRefresh = useCallback(() => {
     setRefreshing(true);
-    wait(100).then(() => setRefreshing(false));
+    wait(700).then(() => {
+      async function getAppliedSchemes() {
+        const schemes = await fetchAppliedSchemes(userData.uid);
+        if (schemesList.length === 0) {
+          for (let key in schemes) {
+            setSchemesList((currentSchemes) => [
+              ...currentSchemes,
+              schemes[key],
+            ]);
+            console.log("%%%%%");
+            console.log(schemes[key].sname);
+            appliedCtx.applyScheme(schemes[key]);
+          }
+        }
+      }
+
+      getAppliedSchemes();
+      setRefreshing(false);
+    });
   }, []);
 
   if (isLoading) return <ActivityIndicator size="large" color="dodgerblue" />;
 
-  const listItems = schemesList;
+  let uniqueSchemeArray = [
+    ...new Map(
+      appliedCtx.schemes.map((item) => [item["sname"], item])
+    ).values(),
+  ];
+
+  let listItems = uniqueSchemeArray;
 
   if (listItems.length === 0) {
     return (
@@ -130,14 +152,14 @@ export default function AppliedList() {
                   </View>
 
                   <View>
-                    {item.trackStatus === "Rejected" ? (
+                    {item.trackStatus === "Rejected" && (
                       <View>
                         <Text style={styles.ref}>Remark:</Text>
                         <Text style={styles.refid}>{item.remark}</Text>
                       </View>
-                    ) : (
+                    )}
+                    {item.trackStatus === "Approved" && (
                       <View>
-                        {console.log(item.refID)}
                         <Text style={styles.ref}>Reference ID:</Text>
                         <Text style={styles.refid}>{item.refID}</Text>
                       </View>
